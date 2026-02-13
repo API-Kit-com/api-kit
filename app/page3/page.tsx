@@ -104,7 +104,7 @@ export default function Page3() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <header className="sticky top-0 z-40 border-b border-border bg-background/95 backdrop-blur-xl">
-        <div className="mx-auto flex h-16 max-w-[1180px] items-center justify-between px-4">
+        <div className="mx-auto flex h-16 max-w-[1180px] items-center justify-between px-6 sm:px-8">
           <Link href="/" className="flex items-center gap-2">
             <span className="grid h-8 w-8 place-items-center rounded-lg bg-primary text-xs font-bold text-primary-foreground">
               E
@@ -130,7 +130,7 @@ export default function Page3() {
         <section className="relative overflow-hidden border-b border-border">
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_10%_10%,oklch(0.60_0.13_163_/_0.18),transparent_34%),radial-gradient(circle_at_90%_0%,oklch(0.60_0.13_163_/_0.12),transparent_30%),linear-gradient(to_bottom,rgba(0,0,0,0.02),transparent_35%)]" />
 
-          <div className="relative mx-auto grid max-w-[1180px] items-center gap-10 px-4 py-16 md:grid-cols-2 md:py-22">
+          <div className="relative mx-auto grid max-w-[1180px] items-center gap-10 px-6 py-16 sm:px-8 md:grid-cols-2 md:py-22">
             <div>
               <p className="inline-flex items-center rounded-full border border-border bg-primary/10 px-3 py-1 text-xs text-primary">
                 Knowledge + Compliance Platform
@@ -186,7 +186,7 @@ export default function Page3() {
           </div>
         </section>
 
-        <section className="mx-auto max-w-[1180px] px-4 py-10">
+        <section className="mx-auto max-w-[1180px] px-6 py-10 sm:px-8">
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 md:grid-cols-8">
             {partnerLogos.map((brand) => (
               <div key={brand} className="rounded-lg border border-border bg-card px-3 py-2 text-center text-xs text-muted-foreground">
@@ -197,7 +197,7 @@ export default function Page3() {
         </section>
 
         <section className="border-y border-border bg-muted/40">
-          <div className="mx-auto max-w-[1180px] px-4 py-16">
+          <div className="mx-auto max-w-[1180px] px-6 py-16 sm:px-8">
             <div className="mb-10 max-w-3xl">
               <h2 className="text-3xl font-semibold tracking-[-0.02em] sm:text-4xl">Centralized & unified performance</h2>
               <p className="mt-4 text-muted-foreground">
@@ -217,7 +217,7 @@ export default function Page3() {
           </div>
         </section>
 
-        <section className="mx-auto max-w-[1180px] px-4 py-16">
+        <section className="mx-auto max-w-[1180px] px-6 py-16 sm:px-8">
           <p className="text-xs font-medium uppercase tracking-[0.22em] text-primary">Features & Benefits</p>
           <div className="mb-10 mt-4 max-w-3xl">
             <h2 className="text-3xl font-semibold tracking-[-0.02em] sm:text-4xl">
@@ -239,7 +239,7 @@ export default function Page3() {
         </section>
 
         <section className="border-y border-border bg-muted/40">
-          <div className="mx-auto max-w-[1180px] px-4 py-16">
+          <div className="mx-auto max-w-[1180px] px-6 py-16 sm:px-8">
             <p className="text-xs font-medium uppercase tracking-[0.22em] text-primary">Testimonial</p>
             <article className="mt-5 rounded-3xl border border-border bg-card p-8">
               <p className="text-2xl font-medium leading-relaxed sm:text-3xl">
@@ -257,7 +257,7 @@ export default function Page3() {
           </div>
         </section>
 
-        <section className="mx-auto max-w-[1180px] px-4 py-16">
+        <section className="mx-auto max-w-[1180px] px-6 py-16 sm:px-8">
           <div className="mb-10 max-w-3xl">
             <h2 className="text-3xl font-semibold tracking-[-0.02em] sm:text-4xl">Compliance built for AI agents</h2>
             <p className="mt-4 text-muted-foreground">
@@ -318,7 +318,7 @@ export default function Page3() {
         </section>
 
         <section className="border-y border-border bg-muted/40">
-          <div className="mx-auto max-w-[1180px] px-4 py-16">
+          <div className="mx-auto max-w-[1180px] px-6 py-16 sm:px-8">
             <div className="mb-8 max-w-3xl">
               <h2 className="text-3xl font-semibold tracking-[-0.02em] sm:text-4xl">Frequently asked questions</h2>
               <p className="mt-3 text-muted-foreground">Most teams ask these before rollout.</p>
@@ -343,7 +343,7 @@ export default function Page3() {
           </div>
         </section>
 
-        <section className="mx-auto max-w-[1180px] px-4 py-18">
+        <section className="mx-auto max-w-[1180px] px-6 py-18 sm:px-8">
           <div className="rounded-3xl border border-border bg-gradient-to-br from-primary/20 via-primary/10 to-background p-8 sm:p-12">
             <h2 className="text-3xl font-semibold tracking-[-0.02em] sm:text-5xl">
               Try Echelon-style intelligence
@@ -367,7 +367,7 @@ export default function Page3() {
       </main>
 
       <footer className="border-t border-border bg-background">
-        <div className="mx-auto max-w-[1180px] px-4 py-10">
+        <div className="mx-auto max-w-[1180px] px-6 py-10 sm:px-8">
           <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
             <div>
               <div className="flex items-center gap-2">
