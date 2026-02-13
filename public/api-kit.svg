@@ -1,0 +1,5 @@
+<svg width="400" height="400" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M200 25L375 112.5L200 200L25 112.5L200 25Z" fill="black"/>
+<path d="M25 156.25L200 243.75L375 156.25V200L200 287.5L25 200V156.25Z" fill="black"/>
+<path d="M25 243.75L200 331.25L375 243.75V287.5L200 375L25 287.5V243.75Z" fill="black"/>
+</svg>

@@ -1,3 +1,5 @@
+import { Layers } from "lucide-react";
+
 const partnerLogos = [
   "Northline",
   "Helix Corp",
@@ -344,8 +346,8 @@ export function HomePage() {
           <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
             <div>
               <div className="flex items-center gap-2">
-                <span className="grid h-8 w-8 place-items-center rounded-lg bg-primary text-xs font-bold text-primary-foreground">
-                  AK
+                <span className="grid h-8 w-8 place-items-center rounded-lg bg-primary text-primary-foreground">
+                  <Layers className="h-4 w-4" />
                 </span>
                 <p className="text-sm font-semibold">API-Kit</p>
               </div>

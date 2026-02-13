@@ -1,6 +1,6 @@
 "use client";
 
-import { Moon, Sun } from "lucide-react";
+import { Layers, Moon, Sun } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
@@ -35,8 +35,8 @@ export function TopBar() {
     <header className="fixed inset-x-0 top-0 z-40 border-b border-border bg-background/95 backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-[1180px] items-center justify-between px-6 sm:px-8">
         <Link href="/" className="flex items-center gap-2">
-          <span className="grid h-8 w-8 place-items-center rounded-lg bg-primary text-xs font-bold text-primary-foreground">
-            AK
+          <span className="grid h-8 w-8 place-items-center rounded-lg bg-primary text-primary-foreground">
+            <Layers className="h-4 w-4" />
           </span>
           <span className="text-sm font-semibold tracking-wide">API-Kit</span>
         </Link>
