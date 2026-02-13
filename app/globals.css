@@ -180,4 +180,28 @@
     pointer-events: none;
     background: radial-gradient(circle at center, transparent 42%, rgba(247, 247, 247, 0.5) 78%, rgba(247, 247, 247, 0.92) 100%);
   }
+
+  .echelon-side-rails {
+    position: relative;
+  }
+
+  .echelon-side-rails::before,
+  .echelon-side-rails::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    pointer-events: none;
+    background: rgba(255, 255, 255, 0.12);
+    z-index: 1;
+  }
+
+  .echelon-side-rails::before {
+    left: max(16px, calc((100% - 1180px) / 2 + 16px));
+  }
+
+  .echelon-side-rails::after {
+    right: max(16px, calc((100% - 1180px) / 2 + 16px));
+  }
 }
