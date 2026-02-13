@@ -319,7 +319,7 @@ export function HomePage() {
         <section className="mx-auto max-w-[1180px] px-6 py-18 sm:px-8">
           <div className="rounded-3xl border border-border bg-gradient-to-br from-primary/20 via-primary/10 to-background p-8 sm:p-12">
             <h2 className="text-3xl font-semibold tracking-[-0.02em] sm:text-5xl">
-              Try Echelon-style intelligence
+              Try API-Kit intelligence
               <br className="hidden sm:block" />
               for knowledge & compliance
             </h2>
@@ -345,9 +345,9 @@ export function HomePage() {
             <div>
               <div className="flex items-center gap-2">
                 <span className="grid h-8 w-8 place-items-center rounded-lg bg-primary text-xs font-bold text-primary-foreground">
-                  E
+                  AK
                 </span>
-                <p className="text-sm font-semibold">EchelonAI</p>
+                <p className="text-sm font-semibold">API-Kit</p>
               </div>
               <p className="mt-3 max-w-sm text-sm leading-6 text-muted-foreground">
                 A unified ecosystem for human learning and agent governance.
@@ -372,7 +372,7 @@ export function HomePage() {
           </div>
 
           <div className="mt-10 border-t border-border pt-4 text-xs text-muted-foreground">
-            © 2026 Basewell-style, Inc. Terms of Service | Privacy Policy
+            © 2026 API-Kit, Inc. Terms of Service | Privacy Policy
           </div>
         </div>
       </footer>

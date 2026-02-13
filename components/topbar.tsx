@@ -36,9 +36,9 @@ export function TopBar() {
       <div className="mx-auto flex h-16 max-w-[1180px] items-center justify-between px-6 sm:px-8">
         <Link href="/" className="flex items-center gap-2">
           <span className="grid h-8 w-8 place-items-center rounded-lg bg-primary text-xs font-bold text-primary-foreground">
-            E
+            AK
           </span>
-          <span className="text-sm font-semibold tracking-wide">EchelonAI</span>
+          <span className="text-sm font-semibold tracking-wide">API-Kit</span>
         </Link>
 
         <nav className="hidden items-center gap-6 text-sm text-muted-foreground md:flex">
