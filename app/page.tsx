@@ -1,5 +1,5 @@
-import { ComponentExample } from "@/components/component-example";
+import { Page3Landing } from "@/components/page3-landing";
 
-export default function Page() {
-    return <ComponentExample />;
+export default function HomePage() {
+  return <Page3Landing />;
 }
