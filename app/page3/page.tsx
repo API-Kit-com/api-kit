@@ -1,6 +1,9 @@
+"use client";
+import { Moon, Sun } from "lucide-react";
 import Link from "next/link";
+import { useEffect } from "react";
 
-const navItems = ["Product", "Company", "Enterprise", "Coverage", "News"];
+const navItems = ["Showcase", "Docs", "Templates", "Enterprise"];
 
 const partnerLogos = [
   "Northline",
@@ -101,6 +104,22 @@ const footerGroups = [
 ];
 
 export default function Page3() {
+  useEffect(() => {
+    const root = document.documentElement;
+    const saved = localStorage.getItem("theme");
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const shouldUseDark = saved ? saved === "dark" : prefersDark;
+
+    root.classList.toggle("dark", shouldUseDark);
+  }, []);
+
+  function handleThemeToggle() {
+    const root = document.documentElement;
+    const next = !root.classList.contains("dark");
+    root.classList.toggle("dark", next);
+    localStorage.setItem("theme", next ? "dark" : "light");
+  }
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <header className="sticky top-0 z-40 border-b border-border bg-background/95 backdrop-blur-xl">
@@ -120,8 +139,15 @@ export default function Page3() {
             ))}
           </nav>
 
-          <button className="rounded-lg bg-primary px-3.5 py-1.5 text-sm font-semibold text-primary-foreground transition hover:opacity-90">
-            Get Started
+          <button
+            type="button"
+            onClick={handleThemeToggle}
+            aria-label="Toggle theme"
+            className="inline-flex items-center gap-2 rounded-lg border border-border bg-card px-3.5 py-1.5 text-sm font-medium text-foreground transition hover:bg-accent"
+          >
+            <Moon className="h-4 w-4 dark:hidden" />
+            <Sun className="hidden h-4 w-4 dark:block" />
+            Theme
           </button>
         </div>
       </header>
