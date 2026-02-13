@@ -2,9 +2,15 @@
 
 import { Moon, Sun } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 
-const navItems = ["Showcase", "Docs", "Templates", "Enterprise"];
+const navItems = [
+  { label: "Showcase", href: "/showcase" },
+  { label: "Docs", href: "/docs" },
+  { label: "Templates", href: "/templates" },
+  { label: "Enterprise", href: "/enterprise" },
+];
 
 const partnerLogos = [
   "Northline",
@@ -105,6 +111,8 @@ const footerGroups = [
 ];
 
 export function Page3Landing() {
+  const pathname = usePathname();
+
   useEffect(() => {
     const root = document.documentElement;
     const saved = localStorage.getItem("theme");
@@ -134,9 +142,15 @@ export function Page3Landing() {
 
           <nav className="hidden items-center gap-6 text-sm text-muted-foreground md:flex">
             {navItems.map((item) => (
-              <a key={item} href="#" className="transition hover:text-foreground">
-                {item}
-              </a>
+              <Link
+                key={item.label}
+                href={item.href}
+                className={`transition hover:text-foreground ${
+                  pathname === item.href ? "text-foreground" : "text-muted-foreground"
+                }`}
+              >
+                {item.label}
+              </Link>
             ))}
           </nav>
 
