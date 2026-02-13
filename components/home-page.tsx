@@ -1,4 +1,4 @@
-import { Layers } from "lucide-react";
+import Image from "next/image";
 
 const partnerLogos = [
   "Northline",
@@ -346,8 +346,14 @@ export function HomePage() {
           <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
             <div>
               <div className="flex items-center gap-2">
-                <span className="grid h-8 w-8 place-items-center rounded-lg bg-primary text-primary-foreground">
-                  <Layers className="h-4 w-4" />
+                <span className="grid h-8 w-8 place-items-center rounded-lg bg-primary">
+                  <Image
+                    src="/api-kit.svg"
+                    alt="API-Kit logo"
+                    width={16}
+                    height={16}
+                    className="h-5 w-5"
+                  />
                 </span>
                 <p className="text-sm font-semibold">API-Kit</p>
               </div>
