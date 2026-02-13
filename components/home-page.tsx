@@ -110,7 +110,7 @@ const footerGroups = [
   },
 ];
 
-export function Page3Landing() {
+export function HomePage() {
   const pathname = usePathname();
 
   useEffect(() => {
