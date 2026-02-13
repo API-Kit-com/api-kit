@@ -1,17 +1,3 @@
-"use client";
-
-import { Moon, Sun } from "lucide-react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useEffect } from "react";
-
-const navItems = [
-  { label: "Showcase", href: "/showcase" },
-  { label: "Docs", href: "/docs" },
-  { label: "Templates", href: "/templates" },
-  { label: "Enterprise", href: "/enterprise" },
-];
-
 const partnerLogos = [
   "Northline",
   "Helix Corp",
@@ -111,62 +97,8 @@ const footerGroups = [
 ];
 
 export function HomePage() {
-  const pathname = usePathname();
-
-  useEffect(() => {
-    const root = document.documentElement;
-    const saved = localStorage.getItem("theme");
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    const shouldUseDark = saved ? saved === "dark" : prefersDark;
-
-    root.classList.toggle("dark", shouldUseDark);
-  }, []);
-
-  function handleThemeToggle() {
-    const root = document.documentElement;
-    const next = !root.classList.contains("dark");
-    root.classList.toggle("dark", next);
-    localStorage.setItem("theme", next ? "dark" : "light");
-  }
-
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <header className="sticky top-0 z-40 border-b border-border bg-background/95 backdrop-blur-xl">
-        <div className="mx-auto flex h-16 max-w-[1180px] items-center justify-between px-6 sm:px-8">
-          <Link href="/" className="flex items-center gap-2">
-            <span className="grid h-8 w-8 place-items-center rounded-lg bg-primary text-xs font-bold text-primary-foreground">
-              E
-            </span>
-            <span className="text-sm font-semibold tracking-wide">EchelonAI</span>
-          </Link>
-
-          <nav className="hidden items-center gap-6 text-sm text-muted-foreground md:flex">
-            {navItems.map((item) => (
-              <Link
-                key={item.label}
-                href={item.href}
-                className={`transition hover:text-foreground ${
-                  pathname === item.href ? "text-foreground" : "text-muted-foreground"
-                }`}
-              >
-                {item.label}
-              </Link>
-            ))}
-          </nav>
-
-          <button
-            type="button"
-            onClick={handleThemeToggle}
-            aria-label="Toggle theme"
-            className="inline-flex items-center gap-2 rounded-lg border border-border bg-card px-3.5 py-1.5 text-sm font-medium text-foreground transition hover:bg-accent"
-          >
-            <Moon className="h-4 w-4 dark:hidden" />
-            <Sun className="hidden h-4 w-4 dark:block" />
-            Theme
-          </button>
-        </div>
-      </header>
-
       <main className="echelon-side-rails">
         <section className="relative overflow-hidden border-b border-border">
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_10%_10%,oklch(0.60_0.13_163_/_0.18),transparent_34%),radial-gradient(circle_at_90%_0%,oklch(0.60_0.13_163_/_0.12),transparent_30%),linear-gradient(to_bottom,rgba(0,0,0,0.02),transparent_35%)]" />
