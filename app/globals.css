@@ -285,4 +285,30 @@
   .docs-center-rails::after {
     right: 0;
   }
+
+  .stack-marquee-mask {
+    overflow: hidden;
+  }
+
+  .stack-marquee-track {
+    display: flex;
+    width: max-content;
+    gap: 0.75rem;
+    animation: stack-marquee-scroll 30s linear infinite;
+  }
+
+  @keyframes stack-marquee-scroll {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .stack-marquee-track {
+      animation: none;
+    }
+  }
 }
