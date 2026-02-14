@@ -65,19 +65,19 @@ export function ModuleFrameworkSelector({ moduleKey, moduleLabel }: ModuleFramew
 
   return (
     <section className="rounded-xl border border-border bg-card p-4 sm:p-5">
-      <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+      <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <p className="text-sm font-medium text-foreground">Framework selector</p>
           <p className="text-xs text-muted-foreground">
             Choose the framework to preview a quick {moduleLabel} integration.
           </p>
         </div>
-        <label className="flex items-center gap-2 text-sm text-muted-foreground">
+        <label className="inline-flex items-center gap-2 text-xs text-muted-foreground">
           Framework
           <select
             value={selectedKey}
             onChange={(event) => setSelectedKey(event.target.value)}
-            className="h-9 min-w-[220px] rounded-md border border-border bg-background px-2.5 text-sm text-foreground outline-none focus:ring-2 focus:ring-primary/40"
+            className="h-7 w-[140px] rounded-md border border-border bg-background px-1.5 text-[11px] text-foreground outline-none focus:ring-2 focus:ring-primary/40 sm:w-[150px]"
           >
             {frameworkGroups.map((group) => (
               <optgroup key={group.key} label={group.label}>
