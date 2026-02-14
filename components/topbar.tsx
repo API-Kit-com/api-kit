@@ -15,6 +15,7 @@ const navItems = [
 
 export function TopBar() {
   const pathname = usePathname();
+  const isRouteActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
 
   useEffect(() => {
     const root = document.documentElement;
@@ -55,7 +56,7 @@ export function TopBar() {
               key={item.label}
               href={item.href}
               className={`transition hover:text-foreground ${
-                pathname === item.href ? "text-foreground" : "text-muted-foreground"
+                isRouteActive(item.href) ? "text-foreground" : "text-muted-foreground"
               }`}
             >
               {item.label}
