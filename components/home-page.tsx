@@ -1,14 +1,23 @@
 import Image from "next/image";
 
-const partnerLogos = [
-  "Northline",
-  "Helix Corp",
-  "Proxima",
-  "Atlas Labs",
-  "Mosaic",
-  "VentureBase",
-  "Railworks",
-  "OmniTech",
+const stackItems = [
+  "Node.js",
+  "TypeScript",
+  "Express.js",
+  "NestJS",
+  "Fastify",
+  "Hono",
+  "FastAPI",
+  "Django",
+  "Flask",
+  "Spring Boot",
+  "Kotlin + Ktor",
+  "Gin (Go)",
+  "Fiber (Go)",
+  "ASP.NET Core",
+  "Ruby on Rails",
+  "Phoenix",
+  "Actix Web",
 ];
 
 const performanceCards = [
@@ -98,6 +107,8 @@ const footerGroups = [
   },
 ];
 
+const marqueeStacks = [...stackItems, ...stackItems];
+
 export function HomePage() {
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -161,13 +172,21 @@ export function HomePage() {
           </div>
         </section>
 
-        <section className="mx-auto max-w-[1180px] px-6 py-10 sm:px-8">
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 md:grid-cols-8">
-            {partnerLogos.map((brand) => (
-              <div key={brand} className="rounded-lg border border-border bg-card px-3 py-2 text-center text-xs text-muted-foreground">
-                {brand}
+        <section className="border-y border-border bg-muted/30">
+          <div className="mx-auto max-w-[1180px] px-6 py-8 sm:px-8">
+            <p className="text-xs font-medium uppercase tracking-[0.22em] text-muted-foreground">Supported stacks</p>
+            <div className="stack-marquee-mask mt-4">
+              <div className="stack-marquee-track">
+                {marqueeStacks.map((stack, index) => (
+                  <div
+                    key={`${stack}-${index}`}
+                    className="shrink-0 whitespace-nowrap rounded-lg border border-border bg-card px-3 py-2 text-xs text-muted-foreground"
+                  >
+                    {stack}
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
           </div>
         </section>
 
