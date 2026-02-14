@@ -1,11 +1,17 @@
 import { notFound } from "next/navigation";
 import { DocsShell } from "@/components/docs-shell";
-import { ModuleFrameworkSelector } from "@/components/module-framework-selector";
+import {
+  ModuleFrameworkDropdown,
+  ModuleFrameworkPreview,
+} from "@/components/module-framework-selector";
 import { apiKitModuleMap, apiKitModules, isApiKitModuleKey, type ApiKitModuleKey } from "@/components/docs-content";
 
 type ModuleDocsPageProps = {
   params: Promise<{
     module: string;
+  }>;
+  searchParams: Promise<{
+    framework?: string | string[];
   }>;
 };
 
@@ -13,13 +19,15 @@ export function generateStaticParams() {
   return apiKitModules.map((module) => ({ module: module.key }));
 }
 
-export default async function ModuleDocsPage({ params }: ModuleDocsPageProps) {
+export default async function ModuleDocsPage({ params, searchParams }: ModuleDocsPageProps) {
   const { module } = await params;
+  const { framework } = await searchParams;
 
   if (!isApiKitModuleKey(module)) {
     notFound();
   }
 
+  const frameworkParam = Array.isArray(framework) ? framework[0] : framework;
   const moduleKey = module as ApiKitModuleKey;
   const current = apiKitModuleMap[moduleKey];
   const currentIndex = apiKitModules.findIndex((module) => module.key === moduleKey);
@@ -33,7 +41,14 @@ export default async function ModuleDocsPage({ params }: ModuleDocsPageProps) {
       pageOverride={current.page}
       previousLink={previousModule ? { href: previousModule.href, label: "Previous" } : null}
       nextLink={nextModule ? { href: nextModule.href, label: "Next" } : null}
-      customTopContent={<ModuleFrameworkSelector moduleKey={moduleKey} moduleLabel={current.label} />}
+      breadcrumbActions={<ModuleFrameworkDropdown selectedKey={frameworkParam} />}
+      customTopContent={
+        <ModuleFrameworkPreview
+          moduleKey={moduleKey}
+          moduleLabel={current.label}
+          selectedKey={frameworkParam}
+        />
+      }
     />
   );
 }
