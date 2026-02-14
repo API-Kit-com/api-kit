@@ -108,24 +108,24 @@ export function HomePage() {
           <div className="relative mx-auto grid max-w-[1180px] items-center gap-10 px-6 py-16 sm:px-8 md:grid-cols-2 md:py-22">
             <div>
               <p className="inline-flex items-center rounded-full border border-border bg-primary/10 px-3 py-1 text-xs text-primary">
-                Knowledge + Compliance Platform
+                Open-Source API Modules
               </p>
               <h1 className="mt-5 text-4xl font-semibold leading-tight tracking-[-0.03em] sm:text-5xl md:text-6xl">
-                Knowledge & compliance
+                Plug ready APIs
                 <br />
-                for humans and AI agents
+                into any stack
               </h1>
               <p className="mt-5 max-w-xl text-base leading-7 text-muted-foreground sm:text-lg">
-                Unite employee workflows and AI execution in one operating layer. Train faster, enforce standards,
-                and keep every decision aligned with trusted company context.
+                API-Kit provides open-source API implementations so teams do not need to build from zero. Use the same
+                scalable core across Node, Python, Java/Kotlin, Go, .NET, Rails, Phoenix, and more.
               </p>
 
               <div className="mt-8 flex flex-wrap gap-3">
                 <button className="rounded-xl bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground">
-                  Get Started
+                  Browse APIs
                 </button>
                 <button className="rounded-xl border border-border bg-card px-5 py-2.5 text-sm text-foreground transition hover:bg-accent">
-                  Book Demo
+                  Pick Your Stack
                 </button>
               </div>
             </div>
@@ -135,26 +135,26 @@ export function HomePage() {
                 <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
                 <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
                 <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
-                <p className="ml-2 text-xs text-muted-foreground">Control Center</p>
+                <p className="ml-2 text-xs text-muted-foreground">API Catalog</p>
               </div>
 
               <div className="grid gap-3 sm:grid-cols-2">
                 <article className="rounded-xl border border-border bg-muted p-3">
-                  <p className="text-xs text-muted-foreground">Policy coverage</p>
-                  <p className="mt-1 text-2xl font-semibold">96.4%</p>
+                  <p className="text-xs text-muted-foreground">Ready APIs</p>
+                  <p className="mt-1 text-2xl font-semibold">0</p>
                 </article>
                 <article className="rounded-xl border border-border bg-muted p-3">
-                  <p className="text-xs text-muted-foreground">Agent alignment</p>
-                  <p className="mt-1 text-2xl font-semibold">99.1%</p>
+                  <p className="text-xs text-muted-foreground">Framework variants</p>
+                  <p className="mt-1 text-2xl font-semibold">0</p>
                 </article>
               </div>
 
               <div className="mt-3 rounded-xl border border-border bg-muted p-3">
-                <p className="text-xs text-muted-foreground">Knowledge refresh workflow</p>
+                <p className="text-xs text-muted-foreground">Integration workflow</p>
                 <div className="mt-2 space-y-2 text-xs">
-                  <p className="rounded-md border border-border bg-card px-2 py-1.5">1. Ingest updated source docs</p>
-                  <p className="rounded-md border border-border bg-card px-2 py-1.5">2. Validate conflicting policies</p>
-                  <p className="rounded-md border border-border bg-card px-2 py-1.5">3. Publish governed context to agents</p>
+                  <p className="rounded-md border border-border bg-card px-2 py-1.5">1. Choose a ready API module</p>
+                  <p className="rounded-md border border-border bg-card px-2 py-1.5">2. Select your framework implementation</p>
+                  <p className="rounded-md border border-border bg-card px-2 py-1.5">3. Integrate and ship without rebuilding core logic</p>
                 </div>
               </div>
             </div>
