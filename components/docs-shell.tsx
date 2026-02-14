@@ -9,6 +9,7 @@ type DocsShellProps = {
   previousLink?: { href: string; label: string } | null;
   nextLink?: { href: string; label: string } | null;
   customTopContent?: ReactNode;
+  breadcrumbActions?: ReactNode;
 };
 
 export function DocsShell({
@@ -18,6 +19,7 @@ export function DocsShell({
   previousLink,
   nextLink,
   customTopContent,
+  breadcrumbActions,
 }: DocsShellProps) {
   const page = pageOverride ?? docsContent[activeGroup];
   const activeIndex = docsNavigation.findIndex((group) => group.key === activeGroup);
@@ -90,7 +92,7 @@ export function DocsShell({
           </aside>
 
           <article className="min-w-0 px-6 py-10 sm:px-10 xl:col-[2]">
-            <nav aria-label="Breadcrumb" className="mb-6">
+            <nav aria-label="Breadcrumb" className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <ol className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
                 {breadcrumbs.map((crumb, index) => (
                   <li key={`${crumb.label}-${crumb.href}`} className="flex items-center gap-2">
@@ -106,6 +108,7 @@ export function DocsShell({
                   </li>
                 ))}
               </ol>
+              {breadcrumbActions ? <div className="flex items-center">{breadcrumbActions}</div> : null}
             </nav>
 
             <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">{page.pageTitle}</h1>
