@@ -1,15 +1,33 @@
 import Link from "next/link";
-import { docsContent, docsNavigation, type DocsGroupKey } from "@/components/docs-content";
+import { docsContent, docsNavigation, type DocsGroupKey, type DocsPageContent } from "@/components/docs-content";
 
 type DocsShellProps = {
   activeGroup: DocsGroupKey;
+  activeItemId?: string;
+  pageOverride?: DocsPageContent;
+  previousLink?: { href: string; label: string } | null;
+  nextLink?: { href: string; label: string } | null;
 };
 
-export function DocsShell({ activeGroup }: DocsShellProps) {
-  const page = docsContent[activeGroup];
+export function DocsShell({ activeGroup, activeItemId, pageOverride, previousLink, nextLink }: DocsShellProps) {
+  const page = pageOverride ?? docsContent[activeGroup];
   const activeIndex = docsNavigation.findIndex((group) => group.key === activeGroup);
-  const previousGroup = activeIndex > 0 ? docsNavigation[activeIndex - 1] : null;
-  const nextGroup = activeIndex >= 0 && activeIndex < docsNavigation.length - 1 ? docsNavigation[activeIndex + 1] : null;
+  const defaultPreviousGroup = activeIndex > 0 ? docsNavigation[activeIndex - 1] : null;
+  const defaultNextGroup = activeIndex >= 0 && activeIndex < docsNavigation.length - 1 ? docsNavigation[activeIndex + 1] : null;
+  const resolvedPreviousLink =
+    previousLink === undefined
+      ? defaultPreviousGroup
+        ? { href: defaultPreviousGroup.href, label: "Previous" }
+        : null
+      : previousLink;
+  const resolvedNextLink =
+    nextLink === undefined
+      ? defaultNextGroup
+        ? { href: defaultNextGroup.href, label: "Next" }
+        : null
+      : nextLink;
+  const activeGroupConfig = docsNavigation.find((group) => group.key === activeGroup);
+  const selectedItemId = activeItemId ?? activeGroupConfig?.items[0]?.id;
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -32,12 +50,12 @@ export function DocsShell({ activeGroup }: DocsShellProps) {
                     {group.title}
                   </Link>
                   <ul className="space-y-1">
-                    {group.items.map((item, index) => (
+                    {group.items.map((item) => (
                       <li key={item.label}>
                         <Link
-                          href={`${group.href}#${item.id}`}
+                          href={item.href}
                           className={`block rounded-md px-2 py-1.5 text-sm transition hover:bg-accent hover:text-foreground ${
-                            isActiveGroup && index === 0
+                            isActiveGroup && item.id === selectedItemId
                               ? "bg-accent text-foreground"
                               : isActiveGroup
                                 ? "text-foreground/80"
@@ -79,27 +97,27 @@ export function DocsShell({ activeGroup }: DocsShellProps) {
             <div className="mt-14 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-6">
               <span className="text-sm text-muted-foreground">Last updated: Feb 2026</span>
               <div className="flex items-center gap-2">
-                {previousGroup ? (
+                {resolvedPreviousLink ? (
                   <Link
-                    href={previousGroup.href}
+                    href={resolvedPreviousLink.href}
                     className="rounded-md border border-border px-3 py-1.5 text-sm hover:bg-accent"
                   >
-                    Previous
+                    {resolvedPreviousLink.label}
                   </Link>
                 ) : (
-                  <span className="rounded-md border border-border px-3 py-1.5 text-sm text-muted-foreground">
+                  <span className="hidden rounded-md border border-border px-3 py-1.5 text-sm text-muted-foreground sm:inline-flex">
                     Previous
                   </span>
                 )}
-                {nextGroup ? (
+                {resolvedNextLink ? (
                   <Link
-                    href={nextGroup.href}
+                    href={resolvedNextLink.href}
                     className="rounded-md border border-border px-3 py-1.5 text-sm hover:bg-accent"
                   >
-                    Next
+                    {resolvedNextLink.label}
                   </Link>
                 ) : (
-                  <span className="rounded-md border border-border px-3 py-1.5 text-sm text-muted-foreground">
+                  <span className="hidden rounded-md border border-border px-3 py-1.5 text-sm text-muted-foreground sm:inline-flex">
                     Next
                   </span>
                 )}
