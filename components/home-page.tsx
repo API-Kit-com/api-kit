@@ -22,19 +22,19 @@ const stackItems = [
 
 const performanceCards = [
   {
-    title: "Launch fast",
+    title: "Independent microservice modules",
     description:
-      "Capture, organize, and distribute institutional knowledge in minutes with clean onboarding flows.",
+      "Each API is shipped as an isolated service so teams can download and run only what they need.",
   },
   {
-    title: "Sync your stack",
+    title: "Composable by design",
     description:
-      "Connect your tools with integrations, APIs, and event automation so context never gets fragmented.",
+      "Modules are separated but built to connect cleanly, allowing Auth, Billing, and Notifications to work together as one flow.",
   },
   {
-    title: "Access anywhere",
+    title: "Scale service by service",
     description:
-      "Run consistently across desktop, mobile, and field devices for distributed operations and teams.",
+      "Deploy and scale each API independently across your stack while keeping contracts and integration patterns consistent.",
   },
 ];
 
@@ -193,10 +193,12 @@ export function HomePage() {
         <section className="border-y border-border bg-muted/40">
           <div className="mx-auto max-w-[1180px] px-6 py-16 sm:px-8">
             <div className="mb-10 max-w-3xl">
-              <h2 className="text-3xl font-semibold tracking-[-0.02em] sm:text-4xl">Centralized & unified performance</h2>
+              <h2 className="text-3xl font-semibold tracking-[-0.02em] sm:text-4xl">
+                Modular microservices that connect together
+              </h2>
               <p className="mt-4 text-muted-foreground">
-                Bring knowledge, onboarding, and compliance tracking into one operational surface that scales with your
-                organization.
+                API-Kit provides open-source APIs as independent microservices. You can adopt each service separately
+                and still couple them through shared contracts to build complete, production-ready application flows.
               </p>
             </div>
 
