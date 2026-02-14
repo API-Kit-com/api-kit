@@ -35,8 +35,8 @@ export function TopBar() {
   return (
     <header className="fixed inset-x-0 top-0 z-40 border-b border-border bg-background/95 backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-[1180px] items-center justify-between px-6 sm:px-8">
-        <Link href="/" className="flex items-center gap-2">
-          <span className="grid h-8 w-8 place-items-center rounded-lg bg-primary">
+        <div className="flex items-center gap-2">
+          <Link href="/" className="grid h-8 w-8 place-items-center rounded-lg bg-primary">
             <Image
               src="/api-kit.svg"
               alt="API-Kit logo"
@@ -45,9 +45,9 @@ export function TopBar() {
               className="h-5 w-5"
               priority
             />
-          </span>
+          </Link>
           <span className="text-sm font-semibold tracking-wide">API-Kit</span>
-        </Link>
+        </div>
 
         <nav className="hidden items-center gap-6 text-sm text-muted-foreground md:flex">
           {navItems.map((item) => (

@@ -22,6 +22,10 @@ const sidebar = [
     title: "API-Kit",
     items: [
       { label: "Auth", href: "#auth" },
+      { label: "Billing", href: "#billing" },
+      { label: "Ecommerce", href: "#ecommerce" },
+      { label: "Notification", href: "#notification" },
+      { label: "Organization", href: "#organization" },
       { label: "Rate Limits", href: "#rate-limits" },
       { label: "SDK", href: "#sdk" },
     ],
@@ -35,6 +39,13 @@ const toc = [
   { label: "Routing", href: "#routing" },
   { label: "Data Fetching", href: "#data-fetching" },
   { label: "Deployment", href: "#deployment" },
+  { label: "Auth", href: "#auth" },
+  { label: "Billing", href: "#billing" },
+  { label: "Ecommerce", href: "#ecommerce" },
+  { label: "Notification", href: "#notification" },
+  { label: "Organization", href: "#organization" },
+  { label: "Rate Limits", href: "#rate-limits" },
+  { label: "SDK", href: "#sdk" },
 ];
 
 export default function DocsPage() {
@@ -149,6 +160,34 @@ npm run dev`}</code>
               <h2 className="text-2xl font-semibold tracking-tight">Authentication</h2>
               <p className="mt-3 text-muted-foreground">
                 API-Kit supports token-based auth with scoped keys for backend and service integrations.
+              </p>
+            </section>
+
+            <section id="billing" className="mt-12 scroll-mt-24">
+              <h2 className="text-2xl font-semibold tracking-tight">Billing</h2>
+              <p className="mt-3 text-muted-foreground">
+                Configure plans, subscriptions, invoices, and usage-based charging with built-in hooks.
+              </p>
+            </section>
+
+            <section id="ecommerce" className="mt-12 scroll-mt-24">
+              <h2 className="text-2xl font-semibold tracking-tight">Ecommerce</h2>
+              <p className="mt-3 text-muted-foreground">
+                Use API-Kit modules for carts, checkout orchestration, product catalog, and order workflows.
+              </p>
+            </section>
+
+            <section id="notification" className="mt-12 scroll-mt-24">
+              <h2 className="text-2xl font-semibold tracking-tight">Notification</h2>
+              <p className="mt-3 text-muted-foreground">
+                Send transactional emails, SMS, and push notifications with templating and delivery tracking.
+              </p>
+            </section>
+
+            <section id="organization" className="mt-12 scroll-mt-24">
+              <h2 className="text-2xl font-semibold tracking-tight">Organization</h2>
+              <p className="mt-3 text-muted-foreground">
+                Manage organizations, roles, members, and workspace-level permissions in a multi-tenant setup.
               </p>
             </section>
 
