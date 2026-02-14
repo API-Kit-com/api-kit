@@ -1,5 +1,5 @@
-import { DocsShell } from "@/components/docs-shell";
+import { redirect } from "next/navigation";
 
 export default function ApiKitDocsPage() {
-  return <DocsShell activeGroup="api-kit" />;
+  redirect("/docs/api-kit/auth");
 }
