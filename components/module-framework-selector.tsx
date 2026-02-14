@@ -1,15 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { frameworkGuides, type ApiKitModuleKey } from "@/components/docs-content";
 
-type ModuleFrameworkSelectorProps = {
-  moduleKey: ApiKitModuleKey;
-  moduleLabel: string;
-};
-
-type FrameworkOption = {
+export type FrameworkOption = {
   key: string;
   label: string;
   description: string;
@@ -49,49 +44,61 @@ await apiKit.module("${moduleKey}").configure({
 });`;
 }
 
-export function ModuleFrameworkSelector({ moduleKey, moduleLabel }: ModuleFrameworkSelectorProps) {
-  const [selectedKey, setSelectedKey] = useState(frameworkOptions[0]?.key ?? "");
+export function resolveFrameworkOption(selectedKey?: string | null): FrameworkOption {
+  return frameworkOptions.find((option) => option.key === selectedKey) ?? frameworkOptions[0];
+}
 
-  const selectedFramework = useMemo(
-    () => frameworkOptions.find((option) => option.key === selectedKey) ?? frameworkOptions[0],
-    [selectedKey],
-  );
+type ModuleFrameworkDropdownProps = {
+  selectedKey?: string;
+};
 
-  if (!selectedFramework) {
-    return null;
+export function ModuleFrameworkDropdown({ selectedKey }: ModuleFrameworkDropdownProps) {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const selectedFramework = resolveFrameworkOption(selectedKey);
+
+  function handleFrameworkChange(nextKey: string) {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("framework", nextKey);
+    const query = params.toString();
+    router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false });
   }
 
+  return (
+    <label className="inline-flex items-center gap-2 text-xs text-muted-foreground">
+      Framework
+      <select
+        value={selectedFramework.key}
+        onChange={(event) => handleFrameworkChange(event.target.value)}
+        className="h-7 w-[140px] rounded-md border border-border bg-background px-1.5 text-[11px] text-foreground outline-none focus:ring-2 focus:ring-primary/40 sm:w-[150px]"
+      >
+        {frameworkGroups.map((group) => (
+          <optgroup key={group.key} label={group.label}>
+            {group.options.map((option) => (
+              <option key={option.key} value={option.key}>
+                {option.label}
+              </option>
+            ))}
+          </optgroup>
+        ))}
+      </select>
+    </label>
+  );
+}
+
+type ModuleFrameworkPreviewProps = {
+  moduleKey: ApiKitModuleKey;
+  moduleLabel: string;
+  selectedKey?: string;
+};
+
+export function ModuleFrameworkPreview({ moduleKey, moduleLabel, selectedKey }: ModuleFrameworkPreviewProps) {
+  const selectedFramework = resolveFrameworkOption(selectedKey);
   const integrationSnippet = buildIntegrationSnippet(moduleKey, selectedFramework.label);
 
   return (
     <section className="rounded-xl border border-border bg-card p-4 sm:p-5">
-      <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <p className="text-sm font-medium text-foreground">Framework selector</p>
-          <p className="text-xs text-muted-foreground">
-            Choose the framework to preview a quick {moduleLabel} integration.
-          </p>
-        </div>
-        <label className="inline-flex items-center gap-2 text-xs text-muted-foreground">
-          Framework
-          <select
-            value={selectedKey}
-            onChange={(event) => setSelectedKey(event.target.value)}
-            className="h-7 w-[140px] rounded-md border border-border bg-background px-1.5 text-[11px] text-foreground outline-none focus:ring-2 focus:ring-primary/40 sm:w-[150px]"
-          >
-            {frameworkGroups.map((group) => (
-              <optgroup key={group.key} label={group.label}>
-                {group.options.map((option) => (
-                  <option key={option.key} value={option.key}>
-                    {option.label}
-                  </option>
-                ))}
-              </optgroup>
-            ))}
-          </select>
-        </label>
-      </div>
-
       <div className="rounded-lg border border-border bg-muted/40 p-4">
         <p className="text-sm font-medium text-foreground">
           {moduleLabel} with {selectedFramework.label}
