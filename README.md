@@ -1,36 +1,118 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# API-Kit
+
+API-Kit is an open-source API sharing platform focused on reusable backend modules and implementation guides.
+
+This repository contains the web frontend built with Next.js (App Router), including the marketing homepage, docs experience, framework guides, and module-level integration pages.
+
+## Product Focus
+
+API-Kit helps teams:
+
+- Publish reusable API modules (Auth, Billing, Ecommerce, Notification, Organization, Rate Limits, SDK)
+- Share implementation patterns by framework and language ecosystem
+- Standardize API consumption with practical docs and guided onboarding
+
+## Tech Stack
+
+- Next.js 16 (App Router)
+- React 19
+- TypeScript
+- Tailwind CSS v4
+- Lucide React icons
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 20+
+- npm 10+
+
+### Install and Run
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run dev      # Start local development server
+npm run lint     # Run ESLint
+npm run build    # Create production build
+npm run start    # Start production server
+```
 
-## Learn More
+## Route Map
 
-To learn more about Next.js, take a look at the following resources:
+### Main pages
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `/` - Home
+- `/showcase` - Showcase (placeholder)
+- `/templates` - Templates (placeholder)
+- `/enterprise` - Enterprise (placeholder)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Docs hub
 
-## Deploy on Vercel
+- `/docs` -> redirects to `/docs/getting-started`
+- `/docs/getting-started`
+- `/docs/core-concepts`
+- `/docs/framework-guides` -> redirects to `/docs/framework-guides/node-js-ts`
+- `/docs/framework-guides/[stack]`
+- `/docs/api-kit` -> redirects to `/docs/api-kit/auth`
+- `/docs/api-kit/[module]`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Docs Structure
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Docs content and navigation are centralized in:
+
+- `components/docs-content.ts` - docs taxonomy, groups, and section copy
+- `components/docs-shell.tsx` - docs layout (sidebar, breadcrumbs, rails, TOC)
+
+API-Kit module pages support framework-specific previews through:
+
+- `components/module-framework-selector.tsx`
+- `app/docs/api-kit/[module]/page.tsx`
+
+## Project Structure
+
+```text
+app/
+  page.tsx
+  docs/
+  showcase/
+  templates/
+  enterprise/
+components/
+  home-page.tsx
+  topbar.tsx
+  docs-shell.tsx
+  docs-content.ts
+  module-framework-selector.tsx
+public/
+```
+
+## Contribution Flow
+
+This project follows a card-based workflow.
+
+1. Create a branch for one card/task only.
+2. Keep scope focused to that card.
+3. Run quality checks (`npm run lint`, optional `npx tsc --noEmit`).
+4. Commit with clear conventional message (`feature: ...`, `refactor: ...`, `fix: ...`, `docs: ...`).
+5. Open review, merge, and continue with next card.
+
+## Quality Checks
+
+Before merging:
+
+```bash
+npm run lint
+npx tsc --noEmit
+```
+
+## License
+
+MIT. See [LICENSE](./LICENSE).
