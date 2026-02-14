@@ -1,4 +1,4 @@
-export type DocsGroupKey = "getting-started" | "core-concepts" | "api-kit";
+export type DocsGroupKey = "getting-started" | "core-concepts" | "framework-guides" | "api-kit";
 
 export type ApiKitModuleKey =
   | "auth"
@@ -8,6 +8,8 @@ export type ApiKitModuleKey =
   | "organization"
   | "rate-limits"
   | "sdk";
+
+export type FrameworkGuideKey = "node-js-ts" | "python" | "java-kotlin" | "other-stacks";
 
 export type DocsSection = {
   id: string;
@@ -38,6 +40,13 @@ export type DocsNavGroup = {
 
 type ApiKitModule = {
   key: ApiKitModuleKey;
+  label: string;
+  href: string;
+  page: DocsPageContent;
+};
+
+type FrameworkGuide = {
+  key: FrameworkGuideKey;
   label: string;
   href: string;
   page: DocsPageContent;
@@ -179,13 +188,173 @@ export const apiKitModules: ApiKitModule[] = [
   },
 ];
 
+export const frameworkGuides: FrameworkGuide[] = [
+  {
+    key: "node-js-ts",
+    label: "Node / JS / TS",
+    href: "/docs/framework-guides/node-js-ts",
+    page: {
+      breadcrumb: "Framework Guides / Node / JS / TS",
+      pageTitle: "Node / JS / TS",
+      description:
+        "Recommended API-Kit integration paths for JavaScript and TypeScript runtimes.",
+      sections: [
+        {
+          id: "express",
+          title: "Express.js",
+          description:
+            "Add API-Kit middleware for auth validation, request context, and module-level permissions in Express routes.",
+        },
+        {
+          id: "nestjs",
+          title: "NestJS",
+          description:
+            "Use API-Kit with guards, interceptors, and modules so your domain services share a consistent policy layer.",
+        },
+        {
+          id: "fastify",
+          title: "Fastify",
+          description:
+            "Register API-Kit plugins to manage scoped clients, hooks, and validated request pipelines.",
+        },
+        {
+          id: "hono",
+          title: "Hono",
+          description:
+            "Wire API-Kit handlers into edge-ready Hono apps with lightweight middleware composition.",
+        },
+        {
+          id: "encore",
+          title: "Encore.ts",
+          description:
+            "Use API-Kit services with typed Encore.ts endpoints to keep contract-first APIs maintainable.",
+        },
+      ],
+    },
+  },
+  {
+    key: "python",
+    label: "Python",
+    href: "/docs/framework-guides/python",
+    page: {
+      breadcrumb: "Framework Guides / Python",
+      pageTitle: "Python",
+      description:
+        "Integration guides for Python-based API stacks supported by API-Kit.",
+      sections: [
+        {
+          id: "fastapi",
+          title: "FastAPI",
+          description:
+            "Implement API-Kit dependencies in FastAPI for auth checks, usage control, and structured error responses.",
+        },
+        {
+          id: "django-drf",
+          title: "Django + Django REST Framework",
+          description:
+            "Connect API-Kit with DRF permissions and serializers for secure tenant-aware endpoints.",
+        },
+        {
+          id: "flask",
+          title: "Flask",
+          description:
+            "Attach API-Kit request guards and module clients in Flask blueprints for small and flexible services.",
+        },
+      ],
+    },
+  },
+  {
+    key: "java-kotlin",
+    label: "Java & Kotlin",
+    href: "/docs/framework-guides/java-kotlin",
+    page: {
+      breadcrumb: "Framework Guides / Java & Kotlin",
+      pageTitle: "Java & Kotlin",
+      description:
+        "Framework-specific references for JVM backends using API-Kit.",
+      sections: [
+        {
+          id: "spring-boot",
+          title: "Spring Boot",
+          description:
+            "Configure API-Kit via Spring filters and beans to enforce auth and module orchestration across controllers.",
+        },
+        {
+          id: "ktor",
+          title: "Kotlin + Ktor",
+          description:
+            "Set up API-Kit in Ktor pipelines with strongly typed request handling and coroutine-friendly services.",
+        },
+      ],
+    },
+  },
+  {
+    key: "other-stacks",
+    label: "Other Stacks",
+    href: "/docs/framework-guides/other-stacks",
+    page: {
+      breadcrumb: "Framework Guides / Other Stacks",
+      pageTitle: "Other Stacks",
+      description:
+        "Additional ecosystems with proven API-Kit integration patterns.",
+      sections: [
+        {
+          id: "gin",
+          title: "Gin (Go)",
+          description:
+            "Use API-Kit middleware wrappers in Gin handlers for token verification and rate-limit enforcement.",
+        },
+        {
+          id: "fiber",
+          title: "Fiber (Go)",
+          description:
+            "Apply API-Kit guards and shared clients in Fiber apps with low-overhead routing.",
+        },
+        {
+          id: "aspnet-core",
+          title: "ASP.NET Core (C#)",
+          description:
+            "Integrate API-Kit with ASP.NET middleware, policies, and dependency injection for enterprise APIs.",
+        },
+        {
+          id: "rails",
+          title: "Ruby on Rails",
+          description:
+            "Connect API-Kit modules into Rails controllers and service objects for secure business workflows.",
+        },
+        {
+          id: "phoenix",
+          title: "Phoenix (Elixir)",
+          description:
+            "Use API-Kit in plugs and contexts to manage authorization and organization-aware request boundaries.",
+        },
+        {
+          id: "actix",
+          title: "Actix Web (Rust)",
+          description:
+            "Compose API-Kit integrations in Actix middleware for fast, strongly typed APIs.",
+        },
+      ],
+    },
+  },
+];
+
 export const apiKitModuleMap = Object.fromEntries(apiKitModules.map((module) => [module.key, module])) as Record<
   ApiKitModuleKey,
   ApiKitModule
 >;
 
+export const frameworkGuideMap = Object.fromEntries(frameworkGuides.map((guide) => [guide.key, guide])) as Record<
+  FrameworkGuideKey,
+  FrameworkGuide
+>;
+
 export function isApiKitModuleKey(value: string): value is ApiKitModuleKey {
   return Object.hasOwn(apiKitModuleMap, value);
+}
+
+export function isFrameworkGuideKey(value: string): value is FrameworkGuideKey {
+  return Object.hasOwn(frameworkGuideMap, value);
 }
 
 export const docsNavigation: DocsNavGroup[] = [
@@ -209,6 +378,16 @@ export const docsNavigation: DocsNavGroup[] = [
       { label: "Styling", id: "styling", href: "/docs/core-concepts#styling" },
       { label: "Deployment", id: "deployment", href: "/docs/core-concepts#deployment" },
     ],
+  },
+  {
+    key: "framework-guides",
+    title: "Framework Guides",
+    href: "/docs/framework-guides",
+    items: frameworkGuides.map((guide) => ({
+      label: guide.label,
+      id: guide.key,
+      href: guide.href,
+    })),
   },
   {
     key: "api-kit",
@@ -282,11 +461,24 @@ export const docsContent: Record<DocsGroupKey, DocsPageContent> = {
       },
     ],
   },
+  "framework-guides": {
+    breadcrumb: "Framework Guides",
+    pageTitle: "Framework Guides",
+    description:
+      "Select a stack in the sidebar to view framework-specific implementation notes for API-Kit.",
+    sections: [
+      {
+        id: "stacks",
+        title: "Stacks",
+        description:
+          "Node / JS / TS, Python, Java & Kotlin, and Other Stacks each have dedicated routes under /docs/framework-guides.",
+      },
+    ],
+  },
   "api-kit": {
     breadcrumb: "API-Kit",
     pageTitle: "API-Kit",
-    description:
-      "Select a module in the sidebar to open its dedicated documentation route.",
+    description: "Select a module in the sidebar to open its dedicated documentation route.",
     sections: [
       {
         id: "modules",
