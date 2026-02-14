@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { ReactNode } from "react";
 import { docsContent, docsNavigation, type DocsGroupKey, type DocsPageContent } from "@/components/docs-content";
 
 type DocsShellProps = {
@@ -7,9 +8,17 @@ type DocsShellProps = {
   pageOverride?: DocsPageContent;
   previousLink?: { href: string; label: string } | null;
   nextLink?: { href: string; label: string } | null;
+  customTopContent?: ReactNode;
 };
 
-export function DocsShell({ activeGroup, activeItemId, pageOverride, previousLink, nextLink }: DocsShellProps) {
+export function DocsShell({
+  activeGroup,
+  activeItemId,
+  pageOverride,
+  previousLink,
+  nextLink,
+  customTopContent,
+}: DocsShellProps) {
   const page = pageOverride ?? docsContent[activeGroup];
   const activeIndex = docsNavigation.findIndex((group) => group.key === activeGroup);
   const defaultPreviousGroup = activeIndex > 0 ? docsNavigation[activeIndex - 1] : null;
@@ -101,6 +110,7 @@ export function DocsShell({ activeGroup, activeItemId, pageOverride, previousLin
 
             <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">{page.pageTitle}</h1>
             <p className="mt-4 max-w-3xl text-base leading-7 text-muted-foreground sm:text-lg">{page.description}</p>
+            {customTopContent ? <div className="mt-8">{customTopContent}</div> : null}
 
             {page.sections.map((section) => (
               <section key={section.id} id={section.id} className="mt-12 scroll-mt-24">
