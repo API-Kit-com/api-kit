@@ -28,6 +28,14 @@ export function DocsShell({ activeGroup, activeItemId, pageOverride, previousLin
       : nextLink;
   const activeGroupConfig = docsNavigation.find((group) => group.key === activeGroup);
   const selectedItemId = activeItemId ?? activeGroupConfig?.items[0]?.id;
+  const breadcrumbItem = activeItemId
+    ? activeGroupConfig?.items.find((item) => item.id === activeItemId)
+    : null;
+  const breadcrumbs = [
+    { label: "Docs", href: "/docs" },
+    ...(activeGroupConfig ? [{ label: activeGroupConfig.title, href: activeGroupConfig.href }] : []),
+    ...(breadcrumbItem ? [{ label: breadcrumbItem.label, href: breadcrumbItem.href }] : []),
+  ];
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -73,11 +81,23 @@ export function DocsShell({ activeGroup, activeItemId, pageOverride, previousLin
           </aside>
 
           <article className="min-w-0 px-6 py-10 sm:px-10 xl:col-[2]">
-            <div className="mb-6 flex items-center gap-2 text-sm text-muted-foreground">
-              <span>Docs</span>
-              <span>/</span>
-              <span className="text-foreground">{page.breadcrumb}</span>
-            </div>
+            <nav aria-label="Breadcrumb" className="mb-6">
+              <ol className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
+                {breadcrumbs.map((crumb, index) => (
+                  <li key={`${crumb.label}-${crumb.href}`} className="flex items-center gap-2">
+                    {index > 0 ? <span>/</span> : null}
+                    <Link
+                      href={crumb.href}
+                      className={`transition hover:text-foreground ${
+                        index === breadcrumbs.length - 1 ? "text-foreground" : "text-muted-foreground"
+                      }`}
+                    >
+                      {crumb.label}
+                    </Link>
+                  </li>
+                ))}
+              </ol>
+            </nav>
 
             <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">{page.pageTitle}</h1>
             <p className="mt-4 max-w-3xl text-base leading-7 text-muted-foreground sm:text-lg">{page.description}</p>
