@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { DocsShell } from "@/components/docs-shell";
+import { ModuleFrameworkSelector } from "@/components/module-framework-selector";
 import { apiKitModuleMap, apiKitModules, isApiKitModuleKey, type ApiKitModuleKey } from "@/components/docs-content";
 
 type ModuleDocsPageProps = {
@@ -32,6 +33,7 @@ export default async function ModuleDocsPage({ params }: ModuleDocsPageProps) {
       pageOverride={current.page}
       previousLink={previousModule ? { href: previousModule.href, label: "Previous" } : null}
       nextLink={nextModule ? { href: nextModule.href, label: "Next" } : null}
+      customTopContent={<ModuleFrameworkSelector moduleKey={moduleKey} moduleLabel={current.label} />}
     />
   );
 }
