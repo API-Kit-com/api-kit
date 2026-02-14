@@ -1,5 +1,14 @@
 export type DocsGroupKey = "getting-started" | "core-concepts" | "api-kit";
 
+export type ApiKitModuleKey =
+  | "auth"
+  | "billing"
+  | "ecommerce"
+  | "notification"
+  | "organization"
+  | "rate-limits"
+  | "sdk";
+
 export type DocsSection = {
   id: string;
   title: string;
@@ -7,16 +16,188 @@ export type DocsSection = {
   code?: string;
 };
 
-export const docsNavigation = [
+export type DocsPageContent = {
+  breadcrumb: string;
+  pageTitle: string;
+  description: string;
+  sections: DocsSection[];
+};
+
+export type DocsNavItem = {
+  label: string;
+  id: string;
+  href: string;
+};
+
+export type DocsNavGroup = {
+  key: DocsGroupKey;
+  title: string;
+  href: string;
+  items: DocsNavItem[];
+};
+
+type ApiKitModule = {
+  key: ApiKitModuleKey;
+  label: string;
+  href: string;
+  page: DocsPageContent;
+};
+
+export const apiKitModules: ApiKitModule[] = [
+  {
+    key: "auth",
+    label: "Auth",
+    href: "/docs/api-kit/auth",
+    page: {
+      breadcrumb: "API-Kit / Auth",
+      pageTitle: "Auth",
+      description:
+        "Implement authentication flows with session management, token validation, and role-aware authorization rules.",
+      sections: [
+        {
+          id: "overview",
+          title: "Overview",
+          description:
+            "Use Auth to handle sign-in, session refresh, and permissions with pluggable identity providers.",
+        },
+      ],
+    },
+  },
+  {
+    key: "billing",
+    label: "Billing",
+    href: "/docs/api-kit/billing",
+    page: {
+      breadcrumb: "API-Kit / Billing",
+      pageTitle: "Billing",
+      description:
+        "Run subscription and usage-based billing with invoices, plan upgrades, and lifecycle webhooks.",
+      sections: [
+        {
+          id: "overview",
+          title: "Overview",
+          description:
+            "Configure plans, payment methods, and recurring charges while tracking customer billing status.",
+        },
+      ],
+    },
+  },
+  {
+    key: "ecommerce",
+    label: "Ecommerce",
+    href: "/docs/api-kit/ecommerce",
+    page: {
+      breadcrumb: "API-Kit / Ecommerce",
+      pageTitle: "Ecommerce",
+      description:
+        "Compose product catalog, cart, checkout, and order endpoints for custom commerce experiences.",
+      sections: [
+        {
+          id: "overview",
+          title: "Overview",
+          description:
+            "Model products, inventory, and purchase flows with APIs built for headless storefronts.",
+        },
+      ],
+    },
+  },
+  {
+    key: "notification",
+    label: "Notification",
+    href: "/docs/api-kit/notification",
+    page: {
+      breadcrumb: "API-Kit / Notification",
+      pageTitle: "Notification",
+      description:
+        "Deliver transactional communications through email, SMS, and push with retries and tracking.",
+      sections: [
+        {
+          id: "overview",
+          title: "Overview",
+          description:
+            "Centralize delivery channels, templates, and provider failover in a single notification layer.",
+        },
+      ],
+    },
+  },
+  {
+    key: "organization",
+    label: "Organization",
+    href: "/docs/api-kit/organization",
+    page: {
+      breadcrumb: "API-Kit / Organization",
+      pageTitle: "Organization",
+      description:
+        "Manage workspaces, members, and permissions for multi-tenant products and enterprise accounts.",
+      sections: [
+        {
+          id: "overview",
+          title: "Overview",
+          description:
+            "Control organization-level settings, invitations, and role policies across teams and environments.",
+        },
+      ],
+    },
+  },
+  {
+    key: "rate-limits",
+    label: "Rate Limits",
+    href: "/docs/api-kit/rate-limits",
+    page: {
+      breadcrumb: "API-Kit / Rate Limits",
+      pageTitle: "Rate Limits",
+      description:
+        "Protect APIs with quota policies, burst control, and clear error responses for client retry logic.",
+      sections: [
+        {
+          id: "overview",
+          title: "Overview",
+          description:
+            "Set limits per key or workspace and expose headers so clients can adapt traffic automatically.",
+        },
+      ],
+    },
+  },
+  {
+    key: "sdk",
+    label: "SDK",
+    href: "/docs/api-kit/sdk",
+    page: {
+      breadcrumb: "API-Kit / SDK",
+      pageTitle: "SDK",
+      description:
+        "Integrate faster with typed clients, built-in auth handling, and helpers for pagination and retries.",
+      sections: [
+        {
+          id: "overview",
+          title: "Overview",
+          description:
+            "Use the SDK as the default integration path for consistent request handling and error management.",
+        },
+      ],
+    },
+  },
+];
+
+export const apiKitModuleMap = Object.fromEntries(apiKitModules.map((module) => [module.key, module])) as Record<
+  ApiKitModuleKey,
+  ApiKitModule
+>;
+
+export function isApiKitModuleKey(value: string): value is ApiKitModuleKey {
+  return Object.hasOwn(apiKitModuleMap, value);
+}
+
+export const docsNavigation: DocsNavGroup[] = [
   {
     key: "getting-started",
     title: "Getting Started",
     href: "/docs/getting-started",
     items: [
-      { label: "Introduction", id: "introduction" },
-      { label: "Installation", id: "installation" },
-      { label: "Project Structure", id: "project-structure" },
-      { label: "Routing", id: "routing" },
+      { label: "Introduction", id: "introduction", href: "/docs/getting-started#introduction" },
+      { label: "Installation", id: "installation", href: "/docs/getting-started#installation" },
+      { label: "Project Structure", id: "project-structure", href: "/docs/getting-started#project-structure" },
+      { label: "Routing", id: "routing", href: "/docs/getting-started#routing" },
     ],
   },
   {
@@ -24,33 +205,22 @@ export const docsNavigation = [
     title: "Core Concepts",
     href: "/docs/core-concepts",
     items: [
-      { label: "Data Fetching", id: "data-fetching" },
-      { label: "Styling", id: "styling" },
-      { label: "Deployment", id: "deployment" },
+      { label: "Data Fetching", id: "data-fetching", href: "/docs/core-concepts#data-fetching" },
+      { label: "Styling", id: "styling", href: "/docs/core-concepts#styling" },
+      { label: "Deployment", id: "deployment", href: "/docs/core-concepts#deployment" },
     ],
   },
   {
     key: "api-kit",
     title: "API-Kit",
     href: "/docs/api-kit",
-    items: [
-      { label: "Auth", id: "auth" },
-      { label: "Billing", id: "billing" },
-      { label: "Ecommerce", id: "ecommerce" },
-      { label: "Notification", id: "notification" },
-      { label: "Organization", id: "organization" },
-      { label: "Rate Limits", id: "rate-limits" },
-      { label: "SDK", id: "sdk" },
-    ],
+    items: apiKitModules.map((module) => ({
+      label: module.label,
+      id: module.key,
+      href: module.href,
+    })),
   },
-] as const;
-
-type DocsPageContent = {
-  breadcrumb: string;
-  pageTitle: string;
-  description: string;
-  sections: DocsSection[];
-};
+];
 
 export const docsContent: Record<DocsGroupKey, DocsPageContent> = {
   "getting-started": {
@@ -114,51 +284,15 @@ export const docsContent: Record<DocsGroupKey, DocsPageContent> = {
   },
   "api-kit": {
     breadcrumb: "API-Kit",
-    pageTitle: "API-Kit Modules",
+    pageTitle: "API-Kit",
     description:
-      "Explore the modules included in API-Kit and compose only what your product needs, from identity to billing automation.",
+      "Select a module in the sidebar to open its dedicated documentation route.",
     sections: [
       {
-        id: "auth",
-        title: "Auth",
+        id: "modules",
+        title: "Modules",
         description:
-          "Handle sign-in, session management, and scoped access tokens with pluggable identity providers.",
-      },
-      {
-        id: "billing",
-        title: "Billing",
-        description:
-          "Manage subscriptions, plans, invoices, and metered usage in a unified billing workflow.",
-      },
-      {
-        id: "ecommerce",
-        title: "Ecommerce",
-        description:
-          "Model catalog, cart, checkout, and order flows with composable APIs ready for custom storefronts.",
-      },
-      {
-        id: "notification",
-        title: "Notification",
-        description:
-          "Send email, SMS, and push notifications with templates, retries, and delivery visibility.",
-      },
-      {
-        id: "organization",
-        title: "Organization",
-        description:
-          "Support multi-tenant workspaces with members, roles, permissions, and organization-level settings.",
-      },
-      {
-        id: "rate-limits",
-        title: "Rate Limits",
-        description:
-          "Protect your platform with per-key quotas, throttling policies, and structured error feedback.",
-      },
-      {
-        id: "sdk",
-        title: "SDK",
-        description:
-          "Use official SDK helpers for authentication headers, pagination, retries, and typed responses.",
+          "Auth, Billing, Ecommerce, Notification, Organization, Rate Limits, and SDK each have their own route under /docs/api-kit.",
       },
     ],
   },
