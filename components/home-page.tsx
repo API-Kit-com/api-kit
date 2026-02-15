@@ -240,14 +240,14 @@ export function HomePage() {
             <p className="text-xs font-medium uppercase tracking-[0.22em] text-primary">Testimonial</p>
             <article className="mt-5 rounded-3xl border border-border bg-card p-8">
               <p className="text-2xl font-medium leading-relaxed sm:text-3xl">
-                “This system became our silent partner in execution, turning scattered knowledge into continuous
-                intelligence.”
+                “We do not have an official customer testimonial yet. If everything goes well, we will publish our
+                first real user story here very soon.”
               </p>
               <div className="mt-6 flex items-center gap-3">
                 <div className="h-10 w-10 rounded-full bg-primary" />
                 <div>
-                  <p className="text-sm font-semibold">Adam Kupfer</p>
-                  <p className="text-xs text-muted-foreground">Advisory Board at Galactic</p>
+                  <p className="text-sm font-semibold">Coming soon</p>
+                  <p className="text-xs text-muted-foreground">Future API-Kit customer case study</p>
                 </div>
               </div>
             </article>
