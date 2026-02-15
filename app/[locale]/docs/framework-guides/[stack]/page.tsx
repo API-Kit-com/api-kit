@@ -1,8 +1,8 @@
 import { notFound } from "next/navigation";
 import { DocsShell } from "@/components/docs-shell";
 import {
-  frameworkGuideMap,
-  frameworkGuides,
+  getFrameworkGuideMap,
+  getFrameworkGuides,
   isFrameworkGuideKey,
   type FrameworkGuideKey,
 } from "@/components/docs-content";
@@ -16,7 +16,8 @@ type FrameworkGuidePageProps = {
 };
 
 export function generateStaticParams() {
-  return SUPPORTED_LOCALES.flatMap((locale) => frameworkGuides.map((guide) => ({ locale, stack: guide.key })));
+  const defaultGuides = getFrameworkGuides("en");
+  return SUPPORTED_LOCALES.flatMap((locale) => defaultGuides.map((guide) => ({ locale, stack: guide.key })));
 }
 
 export default async function FrameworkGuidePage({ params }: FrameworkGuidePageProps) {
@@ -31,6 +32,8 @@ export default async function FrameworkGuidePage({ params }: FrameworkGuidePageP
   }
 
   const stackKey = stack as FrameworkGuideKey;
+  const frameworkGuides = getFrameworkGuides(locale);
+  const frameworkGuideMap = getFrameworkGuideMap(locale);
   const current = frameworkGuideMap[stackKey];
   const currentIndex = frameworkGuides.findIndex((guide) => guide.key === stackKey);
   const previousGuide = currentIndex > 0 ? frameworkGuides[currentIndex - 1] : null;
@@ -42,8 +45,8 @@ export default async function FrameworkGuidePage({ params }: FrameworkGuidePageP
       activeGroup="framework-guides"
       activeItemId={stackKey}
       pageOverride={current.page}
-      previousLink={previousGuide ? { href: previousGuide.href, label: "Previous" } : null}
-      nextLink={nextGuide ? { href: nextGuide.href, label: "Next" } : null}
+      previousLink={previousGuide ? { href: previousGuide.href, label: locale === "pt-br" ? "Anterior" : "Previous" } : null}
+      nextLink={nextGuide ? { href: nextGuide.href, label: locale === "pt-br" ? "Próximo" : "Next" } : null}
     />
   );
 }
