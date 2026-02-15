@@ -1,4 +1,17 @@
-export default function TemplatesPage() {
+import { notFound } from "next/navigation";
+import { isSupportedLocale } from "@/lib/i18n/config";
+
+type TemplatesPageProps = {
+  params: Promise<{
+    locale: string;
+  }>;
+};
+
+export default async function TemplatesPage({ params }: TemplatesPageProps) {
+  const { locale } = await params;
+  if (!isSupportedLocale(locale)) notFound();
+  const isPtBr = locale === "pt-br";
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <main className="echelon-side-rails min-h-[calc(100vh-4rem)]">
@@ -7,7 +20,9 @@ export default function TemplatesPage() {
           <div className="relative mx-auto max-w-4xl px-6 py-20 sm:px-8">
             <h1 className="text-3xl font-semibold tracking-tight">Templates</h1>
             <p className="mt-3 text-muted-foreground">
-              The Templates page is under construction. Soon we will provide ready-to-use starters so teams can move faster.
+              {isPtBr
+                ? "A página de Templates está em construção. Em breve vamos disponibilizar modelos prontos para o time acelerar."
+                : "The Templates page is under construction. Soon we will provide ready-to-use starters so teams can move faster."}
             </p>
           </div>
         </section>

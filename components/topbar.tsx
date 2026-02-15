@@ -15,10 +15,18 @@ const navItems = [
   { label: "Enterprise", href: "/enterprise" },
 ];
 
+const navItemsPtBr = [
+  { label: "Vitrine", href: "/showcase" },
+  { label: "Documentação", href: "/docs" },
+  { label: "Templates", href: "/templates" },
+  { label: "Enterprise", href: "/enterprise" },
+];
+
 export function TopBar() {
   const pathname = usePathname();
   const locale = extractLocaleFromPathname(pathname) ?? DEFAULT_LOCALE;
   const pathnameWithoutLocale = stripLocaleFromPathname(pathname);
+  const nav = locale === "pt-br" ? navItemsPtBr : navItems;
   const isRouteActive = (href: string) =>
     pathnameWithoutLocale === href || pathnameWithoutLocale.startsWith(`${href}/`);
 
@@ -56,7 +64,7 @@ export function TopBar() {
         </div>
 
         <nav className="hidden items-center gap-6 text-sm text-muted-foreground md:flex">
-          {navItems.map((item) => (
+          {nav.map((item) => (
             <Link
               key={item.label}
               href={toLocalePath(locale, item.href)}
@@ -77,7 +85,7 @@ export function TopBar() {
         >
           <Moon className="h-4 w-4 dark:hidden" />
           <Sun className="hidden h-4 w-4 dark:block" />
-          Theme
+          {locale === "pt-br" ? "Tema" : "Theme"}
         </button>
       </div>
     </header>
