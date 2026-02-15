@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ReliabilityFocusPanel } from "@/components/reliability-focus-panel";
+import type { Locale } from "@/lib/i18n/config";
+import { localizeHref } from "@/lib/i18n/routing";
 
 const stackItems = [
   "Node.js",
@@ -100,7 +102,19 @@ const faqItems = [
   },
 ];
 
-const footerGroups = [
+type FooterLink = {
+  label: string;
+  href: string;
+  external?: boolean;
+  comingSoon?: boolean;
+};
+
+type FooterGroup = {
+  title: string;
+  links: FooterLink[];
+};
+
+const footerGroups: FooterGroup[] = [
   {
     title: "Navigation",
     links: [
@@ -130,7 +144,11 @@ const footerGroups = [
 
 const marqueeStacks = [...stackItems, ...stackItems];
 
-export function HomePage() {
+type HomePageProps = {
+  locale: Locale;
+};
+
+export function HomePage({ locale }: HomePageProps) {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <main className="echelon-side-rails">
@@ -362,13 +380,13 @@ export function HomePage() {
             </p>
             <div className="mt-7 flex flex-wrap gap-3">
               <Link
-                href="/docs/api-kit"
+                href={localizeHref(locale, "/docs/api-kit")}
                 className="rounded-xl bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground"
               >
                 Browse API Modules
               </Link>
               <Link
-                href="/docs"
+                href={localizeHref(locale, "/docs")}
                 className="rounded-xl border border-border bg-card px-5 py-2.5 text-sm text-foreground"
               >
                 Read Documentation
@@ -424,7 +442,7 @@ export function HomePage() {
                           {link.label}
                         </a>
                       ) : (
-                        <Link href={link.href} className="transition hover:text-foreground">
+                        <Link href={localizeHref(locale, link.href)} className="transition hover:text-foreground">
                           {link.label}
                         </Link>
                       )}

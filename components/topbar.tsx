@@ -5,6 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
+import { DEFAULT_LOCALE } from "@/lib/i18n/config";
+import { extractLocaleFromPathname, toLocalePath, stripLocaleFromPathname } from "@/lib/i18n/routing";
 
 const navItems = [
   { label: "Showcase", href: "/showcase" },
@@ -15,7 +17,10 @@ const navItems = [
 
 export function TopBar() {
   const pathname = usePathname();
-  const isRouteActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
+  const locale = extractLocaleFromPathname(pathname) ?? DEFAULT_LOCALE;
+  const pathnameWithoutLocale = stripLocaleFromPathname(pathname);
+  const isRouteActive = (href: string) =>
+    pathnameWithoutLocale === href || pathnameWithoutLocale.startsWith(`${href}/`);
 
   useEffect(() => {
     const root = document.documentElement;
@@ -37,7 +42,7 @@ export function TopBar() {
     <header className="fixed inset-x-0 top-0 z-40 border-b border-border bg-background/95 backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-[1180px] items-center justify-between px-6 sm:px-8">
         <div className="flex items-center gap-2">
-          <Link href="/" className="grid h-8 w-8 place-items-center rounded-lg bg-primary">
+          <Link href={toLocalePath(locale, "/")} className="grid h-8 w-8 place-items-center rounded-lg bg-primary">
             <Image
               src="/api-kit.svg"
               alt="API-Kit logo"
@@ -54,7 +59,7 @@ export function TopBar() {
           {navItems.map((item) => (
             <Link
               key={item.label}
-              href={item.href}
+              href={toLocalePath(locale, item.href)}
               className={`transition hover:text-foreground ${
                 isRouteActive(item.href) ? "text-foreground" : "text-muted-foreground"
               }`}

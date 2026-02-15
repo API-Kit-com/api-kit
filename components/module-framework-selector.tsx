@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { frameworkGuides, type ApiKitModuleKey } from "@/components/docs-content";
+import type { Locale } from "@/lib/i18n/config";
+import { localizeHref } from "@/lib/i18n/routing";
 
 export type FrameworkOption = {
   key: string;
@@ -90,10 +92,11 @@ export function ModuleFrameworkDropdown({ selectedKey }: ModuleFrameworkDropdown
 type ModuleFrameworkPreviewProps = {
   moduleKey: ApiKitModuleKey;
   moduleLabel: string;
+  locale: Locale;
   selectedKey?: string;
 };
 
-export function ModuleFrameworkPreview({ moduleKey, moduleLabel, selectedKey }: ModuleFrameworkPreviewProps) {
+export function ModuleFrameworkPreview({ moduleKey, moduleLabel, locale, selectedKey }: ModuleFrameworkPreviewProps) {
   const selectedFramework = resolveFrameworkOption(selectedKey);
   const integrationSnippet = buildIntegrationSnippet(moduleKey, selectedFramework.label);
 
@@ -108,7 +111,7 @@ export function ModuleFrameworkPreview({ moduleKey, moduleLabel, selectedKey }: 
           <code>{integrationSnippet}</code>
         </pre>
         <Link
-          href={selectedFramework.href}
+          href={localizeHref(locale, selectedFramework.href)}
           className="mt-3 inline-flex text-sm text-foreground underline underline-offset-4"
         >
           Open full guide in {selectedFramework.groupLabel}

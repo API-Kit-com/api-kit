@@ -1,8 +1,11 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { docsContent, docsNavigation, type DocsGroupKey, type DocsPageContent } from "@/components/docs-content";
+import type { Locale } from "@/lib/i18n/config";
+import { localizeHref } from "@/lib/i18n/routing";
 
 type DocsShellProps = {
+  locale: Locale;
   activeGroup: DocsGroupKey;
   activeItemId?: string;
   pageOverride?: DocsPageContent;
@@ -13,6 +16,7 @@ type DocsShellProps = {
 };
 
 export function DocsShell({
+  locale,
   activeGroup,
   activeItemId,
   pageOverride,
@@ -61,7 +65,7 @@ export function DocsShell({
               return (
                 <div key={group.title} className="mb-7">
                   <Link
-                    href={group.href}
+                    href={localizeHref(locale, group.href)}
                     className={`mb-2 block text-xs font-semibold uppercase tracking-[0.12em] transition ${
                       isActiveGroup ? "text-foreground" : "text-muted-foreground hover:text-foreground"
                     }`}
@@ -72,7 +76,7 @@ export function DocsShell({
                     {group.items.map((item) => (
                       <li key={item.label}>
                         <Link
-                          href={item.href}
+                          href={localizeHref(locale, item.href)}
                           className={`block rounded-md px-2 py-1.5 text-sm transition hover:bg-accent hover:text-foreground ${
                             isActiveGroup && item.id === selectedItemId
                               ? "bg-accent text-foreground"
@@ -98,7 +102,7 @@ export function DocsShell({
                   <li key={`${crumb.label}-${crumb.href}`} className="flex items-center gap-2">
                     {index > 0 ? <span>/</span> : null}
                     <Link
-                      href={crumb.href}
+                      href={localizeHref(locale, crumb.href)}
                       className={`transition hover:text-foreground ${
                         index === breadcrumbs.length - 1 ? "text-foreground" : "text-muted-foreground"
                       }`}
@@ -132,7 +136,7 @@ export function DocsShell({
               <div className="flex items-center gap-2">
                 {resolvedPreviousLink ? (
                   <Link
-                    href={resolvedPreviousLink.href}
+                    href={localizeHref(locale, resolvedPreviousLink.href)}
                     className="rounded-md border border-border px-3 py-1.5 text-sm hover:bg-accent"
                   >
                     {resolvedPreviousLink.label}
@@ -144,7 +148,7 @@ export function DocsShell({
                 )}
                 {resolvedNextLink ? (
                   <Link
-                    href={resolvedNextLink.href}
+                    href={localizeHref(locale, resolvedNextLink.href)}
                     className="rounded-md border border-border px-3 py-1.5 text-sm hover:bg-accent"
                   >
                     {resolvedNextLink.label}
