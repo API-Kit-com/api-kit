@@ -7,7 +7,7 @@ export default function TemplatesPage() {
           <div className="relative mx-auto max-w-4xl px-6 py-20 sm:px-8">
             <h1 className="text-3xl font-semibold tracking-tight">Templates</h1>
             <p className="mt-3 text-muted-foreground">
-              Templates page em construção. Em breve teremos modelos prontos para começar mais rápido.
+              The Templates page is under construction. Soon we will provide ready-to-use starters so teams can move faster.
             </p>
           </div>
         </section>
