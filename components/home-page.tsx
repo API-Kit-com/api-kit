@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { ReliabilityFocusPanel } from "@/components/reliability-focus-panel";
 
 const stackItems = [
@@ -334,21 +335,34 @@ export function HomePage() {
         <section className="mx-auto max-w-[1180px] px-6 py-18 sm:px-8">
           <div className="rounded-3xl border border-border bg-gradient-to-br from-primary/20 via-primary/10 to-background p-8 sm:p-12">
             <h2 className="text-3xl font-semibold tracking-[-0.02em] sm:text-5xl">
-              Try API-Kit intelligence
+              Try API-Kit
               <br className="hidden sm:block" />
-              for knowledge & compliance
+              in your stack today
             </h2>
             <p className="mt-4 max-w-2xl text-muted-foreground">
-              Launch a governed operating layer for people and agents with onboarding, policy controls, and full audit
-              visibility.
+              Start with one open-source microservice, choose your framework implementation, and compose more APIs as
+              your product grows.
             </p>
             <div className="mt-7 flex flex-wrap gap-3">
-              <button className="rounded-xl bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground">
-                Sign up
-              </button>
-              <button className="rounded-xl border border-border bg-card px-5 py-2.5 text-sm text-foreground">
-                Contact Sales
-              </button>
+              <Link
+                href="/docs/api-kit"
+                className="rounded-xl bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground"
+              >
+                Browse API Modules
+              </Link>
+              <Link
+                href="/docs"
+                className="rounded-xl border border-border bg-card px-5 py-2.5 text-sm text-foreground"
+              >
+                Read Documentation
+              </Link>
+            </div>
+            <div className="mt-5 flex flex-wrap gap-2 text-xs text-muted-foreground">
+              {["Auth", "Billing", "Ecommerce", "Notification", "Organization", "Rate Limits", "SDK"].map((module) => (
+                <span key={module} className="rounded-full border border-border bg-card px-3 py-1.5">
+                  {module}
+                </span>
+              ))}
             </div>
           </div>
         </section>
