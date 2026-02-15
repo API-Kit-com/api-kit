@@ -2,75 +2,9 @@
 
 import { useMemo, useState } from "react";
 import type { Locale } from "@/lib/i18n/config";
+import { getMessages } from "@/messages";
 
 type FocusKey = "compatibility" | "reliability";
-
-type FocusCopy = {
-  steps: string[];
-  stepDescription: string;
-  summary: string;
-  compatibilityLabel: string;
-  reliabilityLabel: string;
-};
-
-const focusCopyByLocale: Record<Locale, Record<FocusKey, FocusCopy>> = {
-  en: {
-    compatibility: {
-      steps: [
-        "Align contracts across API modules",
-        "Keep version boundaries predictable",
-        "Reuse auth and event conventions",
-        "Compose services without schema drift",
-      ],
-      stepDescription: "Compatibility workflow block",
-      summary:
-        "Keep modules predictable at scale with compatibility checks, shared error patterns, and validation on the endpoints your users hit the most.",
-      compatibilityLabel: "Compatibility",
-      reliabilityLabel: "Reliability",
-    },
-    reliability: {
-      steps: [
-        "Standardize request contracts",
-        "Validate high-volume routes",
-        "Handle errors consistently",
-        "Track performance in real time",
-      ],
-      stepDescription: "Reliability workflow block",
-      summary:
-        "Monitor slow routes, repeated failures, and request quality so teams can quickly find what is fast and what needs optimization.",
-      compatibilityLabel: "Compatibility",
-      reliabilityLabel: "Reliability",
-    },
-  },
-  "pt-br": {
-    compatibility: {
-      steps: [
-        "Alinhe contratos entre módulos de API",
-        "Mantenha limites de versão previsíveis",
-        "Reutilize convenções de auth e eventos",
-        "Componha serviços sem desvio de schema",
-      ],
-      stepDescription: "Bloco de fluxo de compatibilidade",
-      summary:
-        "Mantenha os módulos previsíveis em escala com checagens de compatibilidade, padrões de erro compartilhados e validação nos endpoints mais acessados.",
-      compatibilityLabel: "Compatibilidade",
-      reliabilityLabel: "Confiabilidade",
-    },
-    reliability: {
-      steps: [
-        "Padronize contratos de requisição",
-        "Valide rotas de alto volume",
-        "Trate erros de forma consistente",
-        "Acompanhe performance em tempo real",
-      ],
-      stepDescription: "Bloco de fluxo de confiabilidade",
-      summary:
-        "Monitore rotas lentas, falhas recorrentes e qualidade das requisições para identificar rapidamente o que está rápido e o que precisa de otimização.",
-      compatibilityLabel: "Compatibilidade",
-      reliabilityLabel: "Confiabilidade",
-    },
-  },
-};
 
 type ReliabilityFocusPanelProps = {
   locale: Locale;
@@ -78,7 +12,12 @@ type ReliabilityFocusPanelProps = {
 
 export function ReliabilityFocusPanel({ locale }: ReliabilityFocusPanelProps) {
   const [activeFocus, setActiveFocus] = useState<FocusKey>("compatibility");
-  const activeCopy = useMemo(() => focusCopyByLocale[locale][activeFocus], [activeFocus, locale]);
+  const messages = getMessages(locale);
+  const focusMessages = messages.reliabilityFocus;
+  const activeCopy = useMemo(
+    () => focusMessages[activeFocus],
+    [activeFocus, focusMessages],
+  );
 
   return (
     <article className="rounded-2xl border border-border bg-card p-6">
@@ -90,7 +29,7 @@ export function ReliabilityFocusPanel({ locale }: ReliabilityFocusPanelProps) {
             activeFocus === "compatibility" ? "bg-primary/20 text-primary" : "text-muted-foreground"
           }`}
         >
-          {activeCopy.compatibilityLabel}
+          {focusMessages.compatibilityLabel}
         </button>
         <button
           type="button"
@@ -99,7 +38,7 @@ export function ReliabilityFocusPanel({ locale }: ReliabilityFocusPanelProps) {
             activeFocus === "reliability" ? "bg-primary/20 text-primary" : "text-muted-foreground"
           }`}
         >
-          {activeCopy.reliabilityLabel}
+          {focusMessages.reliabilityLabel}
         </button>
       </div>
 

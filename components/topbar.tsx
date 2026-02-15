@@ -6,27 +6,20 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 import { DEFAULT_LOCALE } from "@/lib/i18n/config";
+import { getMessages } from "@/messages";
 import { extractLocaleFromPathname, toLocalePath, stripLocaleFromPathname } from "@/lib/i18n/routing";
-
-const navItems = [
-  { label: "Showcase", href: "/showcase" },
-  { label: "Docs", href: "/docs" },
-  { label: "Templates", href: "/templates" },
-  { label: "Enterprise", href: "/enterprise" },
-];
-
-const navItemsPtBr = [
-  { label: "Vitrine", href: "/showcase" },
-  { label: "Documentação", href: "/docs" },
-  { label: "Templates", href: "/templates" },
-  { label: "Enterprise", href: "/enterprise" },
-];
 
 export function TopBar() {
   const pathname = usePathname();
   const locale = extractLocaleFromPathname(pathname) ?? DEFAULT_LOCALE;
+  const messages = getMessages(locale);
   const pathnameWithoutLocale = stripLocaleFromPathname(pathname);
-  const nav = locale === "pt-br" ? navItemsPtBr : navItems;
+  const nav = [
+    { label: messages.topbar.nav.showcase, href: "/showcase" },
+    { label: messages.topbar.nav.docs, href: "/docs" },
+    { label: messages.topbar.nav.templates, href: "/templates" },
+    { label: messages.topbar.nav.enterprise, href: "/enterprise" },
+  ];
   const isRouteActive = (href: string) =>
     pathnameWithoutLocale === href || pathnameWithoutLocale.startsWith(`${href}/`);
 
@@ -85,7 +78,7 @@ export function TopBar() {
         >
           <Moon className="h-4 w-4 dark:hidden" />
           <Sun className="hidden h-4 w-4 dark:block" />
-          {locale === "pt-br" ? "Tema" : "Theme"}
+          {messages.topbar.theme}
         </button>
       </div>
     </header>
