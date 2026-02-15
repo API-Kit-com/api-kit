@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { getDocsContent, getDocsNavigation, type DocsGroupKey, type DocsPageContent } from "@/components/docs-content";
 import type { Locale } from "@/lib/i18n/config";
+import { getMessages } from "@/messages";
 import { localizeHref } from "@/lib/i18n/routing";
 
 type DocsShellProps = {
@@ -25,7 +26,8 @@ export function DocsShell({
   customTopContent,
   breadcrumbActions,
 }: DocsShellProps) {
-  const isPtBr = locale === "pt-br";
+  const messages = getMessages(locale);
+  const shell = messages.docsShell;
   const docsContent = getDocsContent(locale);
   const docsNavigation = getDocsNavigation(locale);
   const page = pageOverride ?? docsContent[activeGroup];
@@ -35,13 +37,13 @@ export function DocsShell({
   const resolvedPreviousLink =
     previousLink === undefined
       ? defaultPreviousGroup
-        ? { href: defaultPreviousGroup.href, label: isPtBr ? "Anterior" : "Previous" }
+        ? { href: defaultPreviousGroup.href, label: shell.previous }
         : null
       : previousLink;
   const resolvedNextLink =
     nextLink === undefined
       ? defaultNextGroup
-        ? { href: defaultNextGroup.href, label: isPtBr ? "Próximo" : "Next" }
+        ? { href: defaultNextGroup.href, label: shell.next }
         : null
       : nextLink;
   const activeGroupConfig = docsNavigation.find((group) => group.key === activeGroup);
@@ -50,7 +52,7 @@ export function DocsShell({
     ? activeGroupConfig?.items.find((item) => item.id === activeItemId)
     : null;
   const breadcrumbs = [
-    { label: isPtBr ? "Documentação" : "Docs", href: "/docs" },
+    { label: shell.docsLabel, href: "/docs" },
     ...(activeGroupConfig ? [{ label: activeGroupConfig.title, href: activeGroupConfig.href }] : []),
     ...(breadcrumbItem ? [{ label: breadcrumbItem.label, href: breadcrumbItem.href }] : []),
   ];
@@ -135,9 +137,7 @@ export function DocsShell({
             ))}
 
             <div className="mt-14 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-6">
-              <span className="text-sm text-muted-foreground">
-                {isPtBr ? "Última atualização: Fev 2026" : "Last updated: Feb 2026"}
-              </span>
+              <span className="text-sm text-muted-foreground">{shell.lastUpdated}</span>
               <div className="flex items-center gap-2">
                 {resolvedPreviousLink ? (
                   <Link
@@ -148,7 +148,7 @@ export function DocsShell({
                   </Link>
                 ) : (
                   <span className="hidden rounded-md border border-border px-3 py-1.5 text-sm text-muted-foreground sm:inline-flex">
-                    {isPtBr ? "Anterior" : "Previous"}
+                    {shell.previous}
                   </span>
                 )}
                 {resolvedNextLink ? (
@@ -160,7 +160,7 @@ export function DocsShell({
                   </Link>
                 ) : (
                   <span className="hidden rounded-md border border-border px-3 py-1.5 text-sm text-muted-foreground sm:inline-flex">
-                    {isPtBr ? "Próximo" : "Next"}
+                    {shell.next}
                   </span>
                 )}
               </div>
@@ -168,9 +168,7 @@ export function DocsShell({
           </article>
 
           <aside className="hidden h-[calc(100vh-4rem)] overflow-y-auto px-4 py-8 xl:sticky xl:top-16 xl:block xl:w-[220px] xl:pl-6">
-            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">
-              {isPtBr ? "Nesta página" : "On this page"}
-            </p>
+            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">{shell.onThisPage}</p>
             <ul className="space-y-2 text-sm">
               {page.sections.map((section) => (
                 <li key={section.id}>

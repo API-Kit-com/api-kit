@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { getFrameworkGuides, type ApiKitModuleKey } from "@/components/docs-content";
 import type { Locale } from "@/lib/i18n/config";
+import { getMessages } from "@/messages";
 import { localizeHref } from "@/lib/i18n/routing";
 
 export type FrameworkOption = {
@@ -61,6 +62,8 @@ export function ModuleFrameworkDropdown({ locale, selectedKey }: ModuleFramework
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const messages = getMessages(locale);
+  const moduleFramework = messages.moduleFramework;
   const frameworkGroups = getFrameworkGroups(locale);
   const selectedFramework = resolveFrameworkOption(locale, selectedKey);
 
@@ -73,7 +76,7 @@ export function ModuleFrameworkDropdown({ locale, selectedKey }: ModuleFramework
 
   return (
     <label className="inline-flex items-center gap-2 text-xs text-muted-foreground">
-      {locale === "pt-br" ? "Framework" : "Framework"}
+      {moduleFramework.frameworkLabel}
       <select
         value={selectedFramework.key}
         onChange={(event) => handleFrameworkChange(event.target.value)}
@@ -101,6 +104,8 @@ type ModuleFrameworkPreviewProps = {
 };
 
 export function ModuleFrameworkPreview({ moduleKey, moduleLabel, locale, selectedKey }: ModuleFrameworkPreviewProps) {
+  const messages = getMessages(locale);
+  const moduleFramework = messages.moduleFramework;
   const selectedFramework = resolveFrameworkOption(locale, selectedKey);
   const integrationSnippet = buildIntegrationSnippet(moduleKey, selectedFramework.label);
 
@@ -118,9 +123,7 @@ export function ModuleFrameworkPreview({ moduleKey, moduleLabel, locale, selecte
           href={localizeHref(locale, selectedFramework.href)}
           className="mt-3 inline-flex text-sm text-foreground underline underline-offset-4"
         >
-          {locale === "pt-br"
-            ? `Abrir guia completo em ${selectedFramework.groupLabel}`
-            : `Open full guide in ${selectedFramework.groupLabel}`}
+          {`${moduleFramework.openGuidePrefix} ${selectedFramework.groupLabel}`}
         </Link>
       </div>
     </section>

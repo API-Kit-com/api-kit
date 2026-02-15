@@ -6,6 +6,7 @@ import {
 } from "@/components/module-framework-selector";
 import { getApiKitModuleMap, getApiKitModules, isApiKitModuleKey, type ApiKitModuleKey } from "@/components/docs-content";
 import { SUPPORTED_LOCALES, isSupportedLocale } from "@/lib/i18n/config";
+import { getMessages } from "@/messages";
 
 type ModuleDocsPageProps = {
   params: Promise<{
@@ -36,6 +37,8 @@ export default async function ModuleDocsPage({ params, searchParams }: ModuleDoc
 
   const frameworkParam = Array.isArray(framework) ? framework[0] : framework;
   const moduleKey = module as ApiKitModuleKey;
+  const messages = getMessages(locale);
+  const shell = messages.docsShell;
   const apiKitModules = getApiKitModules(locale);
   const apiKitModuleMap = getApiKitModuleMap(locale);
   const current = apiKitModuleMap[moduleKey];
@@ -49,8 +52,8 @@ export default async function ModuleDocsPage({ params, searchParams }: ModuleDoc
       activeGroup="api-kit"
       activeItemId={moduleKey}
       pageOverride={current.page}
-      previousLink={previousModule ? { href: previousModule.href, label: locale === "pt-br" ? "Anterior" : "Previous" } : null}
-      nextLink={nextModule ? { href: nextModule.href, label: locale === "pt-br" ? "Próximo" : "Next" } : null}
+      previousLink={previousModule ? { href: previousModule.href, label: shell.previous } : null}
+      nextLink={nextModule ? { href: nextModule.href, label: shell.next } : null}
       breadcrumbActions={<ModuleFrameworkDropdown locale={locale} selectedKey={frameworkParam} />}
       customTopContent={
         <ModuleFrameworkPreview

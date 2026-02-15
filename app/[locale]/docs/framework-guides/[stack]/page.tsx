@@ -7,6 +7,7 @@ import {
   type FrameworkGuideKey,
 } from "@/components/docs-content";
 import { SUPPORTED_LOCALES, isSupportedLocale } from "@/lib/i18n/config";
+import { getMessages } from "@/messages";
 
 type FrameworkGuidePageProps = {
   params: Promise<{
@@ -32,6 +33,8 @@ export default async function FrameworkGuidePage({ params }: FrameworkGuidePageP
   }
 
   const stackKey = stack as FrameworkGuideKey;
+  const messages = getMessages(locale);
+  const shell = messages.docsShell;
   const frameworkGuides = getFrameworkGuides(locale);
   const frameworkGuideMap = getFrameworkGuideMap(locale);
   const current = frameworkGuideMap[stackKey];
@@ -45,8 +48,8 @@ export default async function FrameworkGuidePage({ params }: FrameworkGuidePageP
       activeGroup="framework-guides"
       activeItemId={stackKey}
       pageOverride={current.page}
-      previousLink={previousGuide ? { href: previousGuide.href, label: locale === "pt-br" ? "Anterior" : "Previous" } : null}
-      nextLink={nextGuide ? { href: nextGuide.href, label: locale === "pt-br" ? "Próximo" : "Next" } : null}
+      previousLink={previousGuide ? { href: previousGuide.href, label: shell.previous } : null}
+      nextLink={nextGuide ? { href: nextGuide.href, label: shell.next } : null}
     />
   );
 }
