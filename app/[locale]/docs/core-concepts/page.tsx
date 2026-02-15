@@ -1,6 +1,6 @@
-import { notFound } from "next/navigation";
-import { DocsShell } from "@/components/docs-shell";
+import { redirect } from "next/navigation";
 import { isSupportedLocale } from "@/lib/i18n/config";
+import { toLocalePath } from "@/lib/i18n/routing";
 
 type CoreConceptsDocsPageProps = {
   params: Promise<{
@@ -10,7 +10,9 @@ type CoreConceptsDocsPageProps = {
 
 export default async function CoreConceptsDocsPage({ params }: CoreConceptsDocsPageProps) {
   const { locale } = await params;
-  if (!isSupportedLocale(locale)) notFound();
+  if (!isSupportedLocale(locale)) {
+    redirect(toLocalePath("en", "/docs/core-concepts/data-fetching"));
+  }
 
-  return <DocsShell locale={locale} activeGroup="core-concepts" />;
+  redirect(toLocalePath(locale, "/docs/core-concepts/data-fetching"));
 }
