@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { isSupportedLocale } from "@/lib/i18n/config";
+import { getMessages } from "@/messages";
 
 type TemplatesPageProps = {
   params: Promise<{
@@ -10,7 +11,8 @@ type TemplatesPageProps = {
 export default async function TemplatesPage({ params }: TemplatesPageProps) {
   const { locale } = await params;
   if (!isSupportedLocale(locale)) notFound();
-  const isPtBr = locale === "pt-br";
+  const messages = getMessages(locale);
+  const content = messages.placeholders.templates;
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -18,12 +20,8 @@ export default async function TemplatesPage({ params }: TemplatesPageProps) {
         <section className="relative overflow-hidden border-b border-border">
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_10%_10%,oklch(0.60_0.13_163_/_0.12),transparent_36%)]" />
           <div className="relative mx-auto max-w-4xl px-6 py-20 sm:px-8">
-            <h1 className="text-3xl font-semibold tracking-tight">Templates</h1>
-            <p className="mt-3 text-muted-foreground">
-              {isPtBr
-                ? "A página de Templates está em construção. Em breve vamos disponibilizar modelos prontos para o time acelerar."
-                : "The Templates page is under construction. Soon we will provide ready-to-use starters so teams can move faster."}
-            </p>
+            <h1 className="text-3xl font-semibold tracking-tight">{content.title}</h1>
+            <p className="mt-3 text-muted-foreground">{content.description}</p>
           </div>
         </section>
       </main>
