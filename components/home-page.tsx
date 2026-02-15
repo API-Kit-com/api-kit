@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { ReliabilityFocusPanel } from "@/components/reliability-focus-panel";
 
 const stackItems = [
   "Node.js",
@@ -70,8 +71,6 @@ const featureBenefits = [
       "Deploy heavy-traffic modules separately while preserving predictable integration behavior across the platform.",
   },
 ];
-
-const modelSteps = ["Construct Model", "Implementation Model", "Test Cases", "Validation"];
 
 const faqItems = [
   {
@@ -256,52 +255,40 @@ export function HomePage() {
 
         <section className="mx-auto max-w-[1180px] px-6 py-16 sm:px-8">
           <div className="mb-10 max-w-3xl">
-            <h2 className="text-3xl font-semibold tracking-[-0.02em] sm:text-4xl">Compliance built for AI agents</h2>
+            <h2 className="text-3xl font-semibold tracking-[-0.02em] sm:text-4xl">
+              API reliability you can verify in production
+            </h2>
             <p className="mt-4 text-muted-foreground">
-              Establish operational boundaries and keep automated workflows aligned with the latest business truth.
+              API-Kit modules are designed to stay compatible when combined. You get consistent error handling,
+              request validation for critical routes, and performance visibility so teams can see what is fast and what
+              needs optimization.
             </p>
           </div>
 
           <div className="grid gap-4 lg:grid-cols-2">
-            <article className="rounded-2xl border border-border bg-card p-6">
-              <div className="mb-4 inline-flex rounded-lg border border-border bg-muted p-1 text-xs">
-                <span className="rounded-md bg-primary/20 px-3 py-1 text-primary">Business</span>
-                <span className="px-3 py-1 text-muted-foreground">Solo</span>
-              </div>
-
-              <div className="grid gap-2 sm:grid-cols-2">
-                {modelSteps.map((step) => (
-                  <div key={step} className="rounded-xl border border-border bg-muted p-3">
-                    <p className="text-sm font-medium">{step}</p>
-                    <p className="mt-1 text-xs text-muted-foreground">Governed workflow block</p>
-                  </div>
-                ))}
-              </div>
-
-              <p className="mt-4 text-sm leading-6 text-muted-foreground">
-                Continuously refresh agents with validated context and enforce policy checks before deployment.
-              </p>
-            </article>
+            <ReliabilityFocusPanel />
 
             <div className="grid gap-4">
               <article className="rounded-2xl border border-border bg-card p-6">
-                <h3 className="text-lg font-semibold">Vulnerability insights</h3>
+                <h3 className="text-lg font-semibold">Request quality insights</h3>
                 <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                  Detect conflicts and edge-case misalignment early with exception monitoring and risk surfacing.
+                  Surface invalid payload patterns, repeated failure points, and routes that need stronger validation
+                  before they impact end users.
                 </p>
                 <div className="mt-4 h-28 rounded-xl border border-border bg-[linear-gradient(to_top,rgba(29,171,122,0.20),transparent),repeating-linear-gradient(to_right,transparent,transparent_26px,rgba(0,0,0,0.06)_26px,rgba(0,0,0,0.06)_27px)]" />
               </article>
 
               <article className="rounded-2xl border border-border bg-card p-6">
-                <h3 className="text-lg font-semibold">Audit transparency</h3>
+                <h3 className="text-lg font-semibold">Performance observability</h3>
                 <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                  Track decision paths with detailed logs so compliance teams can review exactly what happened and why.
+                  Inspect latency trends, slow endpoints, and service-level logs so your team knows exactly what is
+                  fast and what needs tuning.
                 </p>
                 <div className="mt-4 grid grid-cols-3 gap-2">
                   {[
-                    ["Audit Report", "24"],
-                    ["Agentic Log", "98"],
-                    ["Visibility", "100%"],
+                    ["Error Events", "24"],
+                    ["P95 Logs", "98"],
+                    ["Fast Routes", "100%"],
                   ].map(([label, value]) => (
                     <div key={label} className="rounded-lg border border-border bg-muted p-2.5">
                       <p className="text-[11px] text-muted-foreground">{label}</p>
