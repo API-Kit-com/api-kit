@@ -14,6 +14,7 @@ export type ApiKitModuleKey =
 
 export type FrameworkGuideKey = "node-js-ts" | "python" | "java-kotlin" | "other-stacks";
 export type GettingStartedTopicKey = "introduction" | "installation" | "project-structure" | "routing";
+export type CoreConceptTopicKey = "data-fetching" | "styling" | "deployment";
 
 export type DocsSection = {
   id: string;
@@ -58,6 +59,13 @@ type FrameworkGuide = {
 
 type GettingStartedTopic = {
   key: GettingStartedTopicKey;
+  label: string;
+  href: string;
+  page: DocsPageContent;
+};
+
+type CoreConceptTopic = {
+  key: CoreConceptTopicKey;
   label: string;
   href: string;
   page: DocsPageContent;
@@ -430,6 +438,66 @@ export const gettingStartedTopics: GettingStartedTopic[] = [
   },
 ];
 
+export const coreConceptTopics: CoreConceptTopic[] = [
+  {
+    key: "data-fetching",
+    label: "Data Fetching",
+    href: "/docs/core-concepts/data-fetching",
+    page: {
+      breadcrumb: "Core Concepts / Data Fetching",
+      pageTitle: "Data Fetching",
+      description:
+        "Fetch server data in async components, cache per route requirements, and revalidate where your business rules demand freshness.",
+      sections: [
+        {
+          id: "data-fetching",
+          title: "Data Fetching",
+          description:
+            "Fetch server data in async components, cache per route requirements, and revalidate where your business rules demand freshness.",
+        },
+      ],
+    },
+  },
+  {
+    key: "styling",
+    label: "Styling",
+    href: "/docs/core-concepts/styling",
+    page: {
+      breadcrumb: "Core Concepts / Styling",
+      pageTitle: "Styling",
+      description:
+        "Build interfaces with shared tokens, reusable primitives, and utility classes so product surfaces remain consistent.",
+      sections: [
+        {
+          id: "styling",
+          title: "Styling",
+          description:
+            "Build interfaces with shared tokens, reusable primitives, and utility classes so product surfaces remain consistent.",
+        },
+      ],
+    },
+  },
+  {
+    key: "deployment",
+    label: "Deployment",
+    href: "/docs/core-concepts/deployment",
+    page: {
+      breadcrumb: "Core Concepts / Deployment",
+      pageTitle: "Deployment",
+      description:
+        "Promote builds through staging and production with environment-scoped configuration, observability, and rollback safety.",
+      sections: [
+        {
+          id: "deployment",
+          title: "Deployment",
+          description:
+            "Promote builds through staging and production with environment-scoped configuration, observability, and rollback safety.",
+        },
+      ],
+    },
+  },
+];
+
 export const apiKitModuleMap = Object.fromEntries(apiKitModules.map((module) => [module.key, module])) as Record<
   ApiKitModuleKey,
   ApiKitModule
@@ -445,6 +513,11 @@ export const gettingStartedTopicMap = Object.fromEntries(gettingStartedTopics.ma
   GettingStartedTopic
 >;
 
+export const coreConceptTopicMap = Object.fromEntries(coreConceptTopics.map((topic) => [topic.key, topic])) as Record<
+  CoreConceptTopicKey,
+  CoreConceptTopic
+>;
+
 export function isApiKitModuleKey(value: string): value is ApiKitModuleKey {
   return Object.hasOwn(apiKitModuleMap, value);
 }
@@ -455,6 +528,10 @@ export function isFrameworkGuideKey(value: string): value is FrameworkGuideKey {
 
 export function isGettingStartedTopicKey(value: string): value is GettingStartedTopicKey {
   return Object.hasOwn(gettingStartedTopicMap, value);
+}
+
+export function isCoreConceptTopicKey(value: string): value is CoreConceptTopicKey {
+  return Object.hasOwn(coreConceptTopicMap, value);
 }
 
 export const docsNavigation: DocsNavGroup[] = [
@@ -471,12 +548,12 @@ export const docsNavigation: DocsNavGroup[] = [
   {
     key: "core-concepts",
     title: "Core Concepts",
-    href: "/docs/core-concepts",
-    items: [
-      { label: "Data Fetching", id: "data-fetching", href: "/docs/core-concepts#data-fetching" },
-      { label: "Styling", id: "styling", href: "/docs/core-concepts#styling" },
-      { label: "Deployment", id: "deployment", href: "/docs/core-concepts#deployment" },
-    ],
+    href: "/docs/core-concepts/data-fetching",
+    items: coreConceptTopics.map((topic) => ({
+      label: topic.label,
+      id: topic.key,
+      href: topic.href,
+    })),
   },
   {
     key: "framework-guides",
@@ -657,10 +734,27 @@ export function getGettingStartedTopicMap(locale: Locale): Record<GettingStarted
   >;
 }
 
+export function getCoreConceptTopics(locale: Locale): CoreConceptTopic[] {
+  if (locale === "en") return coreConceptTopics;
+  return coreConceptTopics.map((topic) => ({
+    ...topic,
+    label: localizeText(locale, topic.label),
+    page: localizePage(locale, topic.page),
+  }));
+}
+
+export function getCoreConceptTopicMap(locale: Locale): Record<CoreConceptTopicKey, CoreConceptTopic> {
+  return Object.fromEntries(getCoreConceptTopics(locale).map((topic) => [topic.key, topic])) as Record<
+    CoreConceptTopicKey,
+    CoreConceptTopic
+  >;
+}
+
 export function getDocsNavigation(locale: Locale): DocsNavGroup[] {
   if (locale === "en") return docsNavigation;
 
   const localizedGettingStartedTopics = getGettingStartedTopics(locale);
+  const localizedCoreConceptTopics = getCoreConceptTopics(locale);
   const localizedFrameworkGuides = getFrameworkGuides(locale);
   const localizedApiKitModules = getApiKitModules(locale);
 
@@ -677,9 +771,10 @@ export function getDocsNavigation(locale: Locale): DocsNavGroup[] {
     {
       ...docsNavigation[1],
       title: localizeText(locale, docsNavigation[1].title),
-      items: docsNavigation[1].items.map((item) => ({
-        ...item,
-        label: localizeText(locale, item.label),
+      items: localizedCoreConceptTopics.map((topic) => ({
+        label: topic.label,
+        id: topic.key,
+        href: topic.href,
       })),
     },
     {
