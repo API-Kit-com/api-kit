@@ -102,12 +102,22 @@ const faqItems = [
 
 const footerGroups = [
   {
-    title: "Ecosystem",
-    links: ["API Modules", "Framework Guides", "Documentation", "Showcase", "Templates"],
+    title: "Navigation",
+    links: [
+      { label: "Showcase", href: "/showcase" },
+      { label: "Docs", href: "/docs" },
+      { label: "Templates", href: "/templates" },
+      { label: "Enterprise", href: "/enterprise" },
+    ],
   },
   {
-    title: "Project",
-    links: ["Open Source", "Contributing", "Roadmap", "Security", "Status"],
+    title: "Documentation",
+    links: [
+      { label: "API-Kit", href: "/docs/api-kit" },
+      { label: "Getting Started", href: "/docs/getting-started" },
+      { label: "Core Concepts", href: "/docs/core-concepts" },
+      { label: "Framework Guides", href: "/docs/framework-guides" },
+    ],
   },
 ];
 
@@ -394,10 +404,10 @@ export function HomePage() {
                 <h3 className="text-sm font-semibold">{group.title}</h3>
                 <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
                   {group.links.map((link) => (
-                    <li key={link}>
-                      <a href="#" className="transition hover:text-foreground">
-                        {link}
-                      </a>
+                    <li key={link.label}>
+                      <Link href={link.href} className="transition hover:text-foreground">
+                        {link.label}
+                      </Link>
                     </li>
                   ))}
                 </ul>
