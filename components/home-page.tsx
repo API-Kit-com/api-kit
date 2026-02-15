@@ -119,6 +119,13 @@ const footerGroups = [
       { label: "Framework Guides", href: "/docs/framework-guides" },
     ],
   },
+  {
+    title: "Community",
+    links: [
+      { label: "GitHub", href: "https://github.com/API-Kit-com", external: true },
+      { label: "More links coming soon", href: "#", comingSoon: true },
+    ],
+  },
 ];
 
 const marqueeStacks = [...stackItems, ...stackItems];
@@ -380,7 +387,7 @@ export function HomePage() {
 
       <footer className="border-t border-border bg-background">
         <div className="mx-auto max-w-[1180px] px-6 py-10 sm:px-8">
-          <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
+          <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
             <div>
               <div className="flex items-center gap-2">
                 <span className="grid h-8 w-8 place-items-center rounded-lg bg-primary">
@@ -405,9 +412,22 @@ export function HomePage() {
                 <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
                   {group.links.map((link) => (
                     <li key={link.label}>
-                      <Link href={link.href} className="transition hover:text-foreground">
-                        {link.label}
-                      </Link>
+                      {link.comingSoon ? (
+                        <span className="text-muted-foreground/70">{link.label}</span>
+                      ) : link.external ? (
+                        <a
+                          href={link.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="transition hover:text-foreground"
+                        >
+                          {link.label}
+                        </a>
+                      ) : (
+                        <Link href={link.href} className="transition hover:text-foreground">
+                          {link.label}
+                        </Link>
+                      )}
                     </li>
                   ))}
                 </ul>
