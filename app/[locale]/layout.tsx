@@ -1,10 +1,23 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, JetBrains_Mono } from "next/font/google";
 import { notFound } from "next/navigation";
+import Script from "next/script";
 import { TopBar } from "@/components/topbar";
 import { SUPPORTED_LOCALES, isSupportedLocale } from "@/lib/i18n/config";
 import { toHtmlLang } from "@/lib/i18n/routing";
 import "../globals.css";
+
+const themeInitializerScript = `
+(() => {
+  try {
+    const savedTheme = localStorage.getItem("theme");
+    const shouldUseDark = savedTheme ? savedTheme === "dark" : true;
+    document.documentElement.classList.toggle("dark", shouldUseDark);
+  } catch {
+    document.documentElement.classList.add("dark");
+  }
+})();
+`;
 
 const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -47,8 +60,11 @@ export default async function RootLayout({
   }
 
   return (
-    <html lang={toHtmlLang(locale)} className={jetbrainsMono.variable}>
+    <html lang={toHtmlLang(locale)} className={jetbrainsMono.variable} suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <Script id="theme-initializer" strategy="beforeInteractive">
+          {themeInitializerScript}
+        </Script>
         <TopBar />
         <div className="pt-16">{children}</div>
       </body>

@@ -26,8 +26,7 @@ export function TopBar() {
   useEffect(() => {
     const root = document.documentElement;
     const saved = localStorage.getItem("theme");
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    const shouldUseDark = saved ? saved === "dark" : prefersDark;
+    const shouldUseDark = saved ? saved === "dark" : true;
 
     root.classList.toggle("dark", shouldUseDark);
   }, []);
