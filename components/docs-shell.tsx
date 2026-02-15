@@ -1,8 +1,12 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { docsContent, docsNavigation, type DocsGroupKey, type DocsPageContent } from "@/components/docs-content";
+import { getDocsContent, getDocsNavigation, type DocsGroupKey, type DocsPageContent } from "@/components/docs-content";
+import type { Locale } from "@/lib/i18n/config";
+import { getMessages } from "@/messages";
+import { localizeHref } from "@/lib/i18n/routing";
 
 type DocsShellProps = {
+  locale: Locale;
   activeGroup: DocsGroupKey;
   activeItemId?: string;
   pageOverride?: DocsPageContent;
@@ -13,6 +17,7 @@ type DocsShellProps = {
 };
 
 export function DocsShell({
+  locale,
   activeGroup,
   activeItemId,
   pageOverride,
@@ -21,6 +26,10 @@ export function DocsShell({
   customTopContent,
   breadcrumbActions,
 }: DocsShellProps) {
+  const messages = getMessages(locale);
+  const shell = messages.docsShell;
+  const docsContent = getDocsContent(locale);
+  const docsNavigation = getDocsNavigation(locale);
   const page = pageOverride ?? docsContent[activeGroup];
   const activeIndex = docsNavigation.findIndex((group) => group.key === activeGroup);
   const defaultPreviousGroup = activeIndex > 0 ? docsNavigation[activeIndex - 1] : null;
@@ -28,13 +37,13 @@ export function DocsShell({
   const resolvedPreviousLink =
     previousLink === undefined
       ? defaultPreviousGroup
-        ? { href: defaultPreviousGroup.href, label: "Previous" }
+        ? { href: defaultPreviousGroup.href, label: shell.previous }
         : null
       : previousLink;
   const resolvedNextLink =
     nextLink === undefined
       ? defaultNextGroup
-        ? { href: defaultNextGroup.href, label: "Next" }
+        ? { href: defaultNextGroup.href, label: shell.next }
         : null
       : nextLink;
   const activeGroupConfig = docsNavigation.find((group) => group.key === activeGroup);
@@ -43,7 +52,7 @@ export function DocsShell({
     ? activeGroupConfig?.items.find((item) => item.id === activeItemId)
     : null;
   const breadcrumbs = [
-    { label: "Docs", href: "/docs" },
+    { label: shell.docsLabel, href: "/docs" },
     ...(activeGroupConfig ? [{ label: activeGroupConfig.title, href: activeGroupConfig.href }] : []),
     ...(breadcrumbItem ? [{ label: breadcrumbItem.label, href: breadcrumbItem.href }] : []),
   ];
@@ -61,7 +70,7 @@ export function DocsShell({
               return (
                 <div key={group.title} className="mb-7">
                   <Link
-                    href={group.href}
+                    href={localizeHref(locale, group.href)}
                     className={`mb-2 block text-xs font-semibold uppercase tracking-[0.12em] transition ${
                       isActiveGroup ? "text-foreground" : "text-muted-foreground hover:text-foreground"
                     }`}
@@ -72,7 +81,7 @@ export function DocsShell({
                     {group.items.map((item) => (
                       <li key={item.label}>
                         <Link
-                          href={item.href}
+                          href={localizeHref(locale, item.href)}
                           className={`block rounded-md px-2 py-1.5 text-sm transition hover:bg-accent hover:text-foreground ${
                             isActiveGroup && item.id === selectedItemId
                               ? "bg-accent text-foreground"
@@ -98,7 +107,7 @@ export function DocsShell({
                   <li key={`${crumb.label}-${crumb.href}`} className="flex items-center gap-2">
                     {index > 0 ? <span>/</span> : null}
                     <Link
-                      href={crumb.href}
+                      href={localizeHref(locale, crumb.href)}
                       className={`transition hover:text-foreground ${
                         index === breadcrumbs.length - 1 ? "text-foreground" : "text-muted-foreground"
                       }`}
@@ -128,30 +137,30 @@ export function DocsShell({
             ))}
 
             <div className="mt-14 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-6">
-              <span className="text-sm text-muted-foreground">Last updated: Feb 2026</span>
+              <span className="text-sm text-muted-foreground">{shell.lastUpdated}</span>
               <div className="flex items-center gap-2">
                 {resolvedPreviousLink ? (
                   <Link
-                    href={resolvedPreviousLink.href}
+                    href={localizeHref(locale, resolvedPreviousLink.href)}
                     className="rounded-md border border-border px-3 py-1.5 text-sm hover:bg-accent"
                   >
                     {resolvedPreviousLink.label}
                   </Link>
                 ) : (
                   <span className="hidden rounded-md border border-border px-3 py-1.5 text-sm text-muted-foreground sm:inline-flex">
-                    Previous
+                    {shell.previous}
                   </span>
                 )}
                 {resolvedNextLink ? (
                   <Link
-                    href={resolvedNextLink.href}
+                    href={localizeHref(locale, resolvedNextLink.href)}
                     className="rounded-md border border-border px-3 py-1.5 text-sm hover:bg-accent"
                   >
                     {resolvedNextLink.label}
                   </Link>
                 ) : (
                   <span className="hidden rounded-md border border-border px-3 py-1.5 text-sm text-muted-foreground sm:inline-flex">
-                    Next
+                    {shell.next}
                   </span>
                 )}
               </div>
@@ -159,7 +168,7 @@ export function DocsShell({
           </article>
 
           <aside className="hidden h-[calc(100vh-4rem)] overflow-y-auto px-4 py-8 xl:sticky xl:top-16 xl:block xl:w-[220px] xl:pl-6">
-            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">On this page</p>
+            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">{shell.onThisPage}</p>
             <ul className="space-y-2 text-sm">
               {page.sections.map((section) => (
                 <li key={section.id}>

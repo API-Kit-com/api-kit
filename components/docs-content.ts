@@ -1,3 +1,6 @@
+import type { Locale } from "@/lib/i18n/config";
+import { getMessages } from "@/messages";
+
 export type DocsGroupKey = "getting-started" | "core-concepts" | "framework-guides" | "api-kit";
 
 export type ApiKitModuleKey =
@@ -489,3 +492,110 @@ export const docsContent: Record<DocsGroupKey, DocsPageContent> = {
     ],
   },
 };
+
+function localizeText(locale: Locale, text: string): string {
+  if (locale === "en") return text;
+  const docsTextMap = getMessages(locale).docsTextMap;
+  return docsTextMap[text] ?? text;
+}
+
+function localizePage(locale: Locale, page: DocsPageContent): DocsPageContent {
+  return {
+    ...page,
+    breadcrumb: localizeText(locale, page.breadcrumb),
+    pageTitle: localizeText(locale, page.pageTitle),
+    description: localizeText(locale, page.description),
+    sections: page.sections.map((section) => ({
+      ...section,
+      title: localizeText(locale, section.title),
+      description: localizeText(locale, section.description),
+    })),
+  };
+}
+
+export function getApiKitModules(locale: Locale): ApiKitModule[] {
+  if (locale === "en") return apiKitModules;
+  return apiKitModules.map((module) => ({
+    ...module,
+    label: localizeText(locale, module.label),
+    page: localizePage(locale, module.page),
+  }));
+}
+
+export function getApiKitModuleMap(locale: Locale): Record<ApiKitModuleKey, ApiKitModule> {
+  return Object.fromEntries(getApiKitModules(locale).map((module) => [module.key, module])) as Record<
+    ApiKitModuleKey,
+    ApiKitModule
+  >;
+}
+
+export function getFrameworkGuides(locale: Locale): FrameworkGuide[] {
+  if (locale === "en") return frameworkGuides;
+  return frameworkGuides.map((guide) => ({
+    ...guide,
+    label: localizeText(locale, guide.label),
+    page: localizePage(locale, guide.page),
+  }));
+}
+
+export function getFrameworkGuideMap(locale: Locale): Record<FrameworkGuideKey, FrameworkGuide> {
+  return Object.fromEntries(getFrameworkGuides(locale).map((guide) => [guide.key, guide])) as Record<
+    FrameworkGuideKey,
+    FrameworkGuide
+  >;
+}
+
+export function getDocsNavigation(locale: Locale): DocsNavGroup[] {
+  if (locale === "en") return docsNavigation;
+
+  const localizedFrameworkGuides = getFrameworkGuides(locale);
+  const localizedApiKitModules = getApiKitModules(locale);
+
+  return [
+    {
+      ...docsNavigation[0],
+      title: localizeText(locale, docsNavigation[0].title),
+      items: docsNavigation[0].items.map((item) => ({
+        ...item,
+        label: localizeText(locale, item.label),
+      })),
+    },
+    {
+      ...docsNavigation[1],
+      title: localizeText(locale, docsNavigation[1].title),
+      items: docsNavigation[1].items.map((item) => ({
+        ...item,
+        label: localizeText(locale, item.label),
+      })),
+    },
+    {
+      ...docsNavigation[2],
+      title: localizeText(locale, docsNavigation[2].title),
+      items: localizedFrameworkGuides.map((guide) => ({
+        label: guide.label,
+        id: guide.key,
+        href: guide.href,
+      })),
+    },
+    {
+      ...docsNavigation[3],
+      title: localizeText(locale, docsNavigation[3].title),
+      items: localizedApiKitModules.map((module) => ({
+        label: module.label,
+        id: module.key,
+        href: module.href,
+      })),
+    },
+  ];
+}
+
+export function getDocsContent(locale: Locale): Record<DocsGroupKey, DocsPageContent> {
+  if (locale === "en") return docsContent;
+
+  return {
+    "getting-started": localizePage(locale, docsContent["getting-started"]),
+    "core-concepts": localizePage(locale, docsContent["core-concepts"]),
+    "framework-guides": localizePage(locale, docsContent["framework-guides"]),
+    "api-kit": localizePage(locale, docsContent["api-kit"]),
+  };
+}

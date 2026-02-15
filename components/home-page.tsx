@@ -1,6 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ReliabilityFocusPanel } from "@/components/reliability-focus-panel";
+import type { Locale } from "@/lib/i18n/config";
+import { localizeHref } from "@/lib/i18n/routing";
+import { getMessages } from "@/messages";
 
 const stackItems = [
   "Node.js",
@@ -22,115 +25,18 @@ const stackItems = [
   "Actix Web",
 ];
 
-const performanceCards = [
-  {
-    title: "Independent microservice modules",
-    description:
-      "Each API is shipped as an isolated service so teams can download and run only what they need.",
-  },
-  {
-    title: "Composable by design",
-    description:
-      "Modules are separated but built to connect cleanly, allowing Auth, Billing, and Notifications to work together as one flow.",
-  },
-  {
-    title: "Scale service by service",
-    description:
-      "Deploy and scale each API independently across your stack while keeping contracts and integration patterns consistent.",
-  },
-];
-
-const featureBenefits = [
-  {
-    title: "Download only what you need",
-    description:
-      "Adopt APIs module by module, so teams can start with one service and expand without platform rewrites.",
-  },
-  {
-    title: "Shared contracts across services",
-    description:
-      "Keep integrations reliable with consistent schemas, events, and auth boundaries between modules.",
-  },
-  {
-    title: "Framework-specific implementations",
-    description:
-      "Use production-ready patterns for Node, Python, Java/Kotlin, Go, .NET, Rails, and other ecosystems.",
-  },
-  {
-    title: "Composable module architecture",
-    description:
-      "Auth, Billing, Notifications, and Organization services stay independent but plug together in complete flows.",
-  },
-  {
-    title: "Open-source by default",
-    description:
-      "Inspect, extend, and self-host API implementations without depending on closed platform internals.",
-  },
-  {
-    title: "Scale each service independently",
-    description:
-      "Deploy heavy-traffic modules separately while preserving predictable integration behavior across the platform.",
-  },
-];
-
-const faqItems = [
-  {
-    q: "What is API-Kit?",
-    a: "API-Kit is an open-source catalog of independent API microservices that teams can plug into their products instead of building core services from scratch.",
-  },
-  {
-    q: "Can we use only one microservice at a time?",
-    a: "Yes. Every API is shipped as an independent microservice, so you can adopt only what you need and add more services later.",
-  },
-  {
-    q: "Which stacks are supported?",
-    a: "You can choose implementations across Node/JS/TS, Python, Java/Kotlin, and other ecosystems such as Go, .NET, Rails, Elixir, and Rust.",
-  },
-  {
-    q: "Can we self-host and customize the APIs?",
-    a: "Yes. Each microservice is open source, so your team can inspect, adapt, and run it in your own infrastructure.",
-  },
-  {
-    q: "How do services connect when used together?",
-    a: "Services remain independent but follow shared contracts and integration patterns, so Auth, Billing, and Notifications can be composed in one flow.",
-  },
-  {
-    q: "Do we get visibility for errors and performance?",
-    a: "Yes. API-Kit focuses on consistent error handling, request validation for critical routes, and logs to identify fast and slow endpoints.",
-  },
-];
-
-const footerGroups = [
-  {
-    title: "Navigation",
-    links: [
-      { label: "Showcase", href: "/showcase" },
-      { label: "Docs", href: "/docs" },
-      { label: "Templates", href: "/templates" },
-      { label: "Enterprise", href: "/enterprise" },
-    ],
-  },
-  {
-    title: "Documentation",
-    links: [
-      { label: "API-Kit", href: "/docs/api-kit" },
-      { label: "Getting Started", href: "/docs/getting-started" },
-      { label: "Core Concepts", href: "/docs/core-concepts" },
-      { label: "Framework Guides", href: "/docs/framework-guides" },
-    ],
-  },
-  {
-    title: "Community",
-    links: [
-      { label: "GitHub", href: "https://github.com/API-Kit-com", external: true },
-      { label: "More links coming soon", href: "#", comingSoon: true },
-    ],
-  },
-];
-
 const marqueeStacks = [...stackItems, ...stackItems];
 
-export function HomePage() {
+const moduleChips = ["Auth", "Billing", "Ecommerce", "Notification", "Organization", "Rate Limits", "SDK"];
+
+type HomePageProps = {
+  locale: Locale;
+};
+
+export function HomePage({ locale }: HomePageProps) {
+  const messages = getMessages(locale);
+  const home = messages.home;
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <main className="echelon-side-rails">
@@ -140,24 +46,21 @@ export function HomePage() {
           <div className="relative mx-auto grid max-w-[1180px] items-center gap-10 px-6 py-16 sm:px-8 md:grid-cols-2 md:py-22">
             <div>
               <p className="inline-flex items-center rounded-full border border-border bg-primary/10 px-3 py-1 text-xs text-primary">
-                Open-Source API Modules
+                {home.badge}
               </p>
               <h1 className="mt-5 text-4xl font-semibold leading-tight tracking-[-0.03em] sm:text-5xl md:text-6xl">
-                Plug ready APIs
+                {home.heroTitleLine1}
                 <br />
-                into any stack
+                {home.heroTitleLine2}
               </h1>
-              <p className="mt-5 max-w-xl text-base leading-7 text-muted-foreground sm:text-lg">
-                API-Kit provides open-source API implementations so teams do not need to build from zero. Use the same
-                scalable core across Node, Python, Java/Kotlin, Go, .NET, Rails, Phoenix, and more.
-              </p>
+              <p className="mt-5 max-w-xl text-base leading-7 text-muted-foreground sm:text-lg">{home.heroDescription}</p>
 
               <div className="mt-8 flex flex-wrap gap-3">
                 <button className="rounded-xl bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground">
-                  Browse APIs
+                  {home.heroPrimaryCta}
                 </button>
                 <button className="rounded-xl border border-border bg-card px-5 py-2.5 text-sm text-foreground transition hover:bg-accent">
-                  Pick Your Stack
+                  {home.heroSecondaryCta}
                 </button>
               </div>
             </div>
@@ -167,26 +70,28 @@ export function HomePage() {
                 <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
                 <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
                 <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
-                <p className="ml-2 text-xs text-muted-foreground">API Catalog</p>
+                <p className="ml-2 text-xs text-muted-foreground">{home.apiCatalogTitle}</p>
               </div>
 
               <div className="grid gap-3 sm:grid-cols-2">
                 <article className="rounded-xl border border-border bg-muted p-3">
-                  <p className="text-xs text-muted-foreground">Ready APIs</p>
+                  <p className="text-xs text-muted-foreground">{home.readyApisLabel}</p>
                   <p className="mt-1 text-2xl font-semibold">0</p>
                 </article>
                 <article className="rounded-xl border border-border bg-muted p-3">
-                  <p className="text-xs text-muted-foreground">Framework variants</p>
+                  <p className="text-xs text-muted-foreground">{home.frameworkVariantsLabel}</p>
                   <p className="mt-1 text-2xl font-semibold">0</p>
                 </article>
               </div>
 
               <div className="mt-3 rounded-xl border border-border bg-muted p-3">
-                <p className="text-xs text-muted-foreground">Integration workflow</p>
+                <p className="text-xs text-muted-foreground">{home.integrationWorkflowLabel}</p>
                 <div className="mt-2 space-y-2 text-xs">
-                  <p className="rounded-md border border-border bg-card px-2 py-1.5">1. Choose a ready API module</p>
-                  <p className="rounded-md border border-border bg-card px-2 py-1.5">2. Select your framework implementation</p>
-                  <p className="rounded-md border border-border bg-card px-2 py-1.5">3. Integrate and ship without rebuilding core logic</p>
+                  {home.integrationSteps.map((step) => (
+                    <p key={step} className="rounded-md border border-border bg-card px-2 py-1.5">
+                      {step}
+                    </p>
+                  ))}
                 </div>
               </div>
             </div>
@@ -195,7 +100,7 @@ export function HomePage() {
 
         <section className="border-y border-border bg-muted/30">
           <div className="mx-auto max-w-[1180px] px-6 py-8 sm:px-8">
-            <p className="text-xs font-medium uppercase tracking-[0.22em] text-muted-foreground">Supported stacks</p>
+            <p className="text-xs font-medium uppercase tracking-[0.22em] text-muted-foreground">{home.supportedStacksLabel}</p>
             <div className="stack-marquee-mask mt-4">
               <div className="stack-marquee-track">
                 {marqueeStacks.map((stack, index) => (
@@ -214,17 +119,12 @@ export function HomePage() {
         <section className="border-y border-border bg-muted/40">
           <div className="mx-auto max-w-[1180px] px-6 py-16 sm:px-8">
             <div className="mb-10 max-w-3xl">
-              <h2 className="text-3xl font-semibold tracking-[-0.02em] sm:text-4xl">
-                Modular microservices that connect together
-              </h2>
-              <p className="mt-4 text-muted-foreground">
-                API-Kit provides open-source APIs as independent microservices. You can adopt each service separately
-                and still couple them through shared contracts to build complete, production-ready application flows.
-              </p>
+              <h2 className="text-3xl font-semibold tracking-[-0.02em] sm:text-4xl">{home.modularSectionTitle}</h2>
+              <p className="mt-4 text-muted-foreground">{home.modularSectionDescription}</p>
             </div>
 
             <div className="grid gap-4 md:grid-cols-3">
-              {performanceCards.map((card) => (
+              {home.performanceCards.map((card) => (
                 <article key={card.title} className="rounded-2xl border border-border bg-card p-6">
                   <h3 className="text-lg font-semibold">{card.title}</h3>
                   <p className="mt-3 text-sm leading-6 text-muted-foreground">{card.description}</p>
@@ -235,19 +135,14 @@ export function HomePage() {
         </section>
 
         <section className="mx-auto max-w-[1180px] px-6 py-16 sm:px-8">
-          <p className="text-xs font-medium uppercase tracking-[0.22em] text-primary">Features & Benefits</p>
+          <p className="text-xs font-medium uppercase tracking-[0.22em] text-primary">{home.featuresLabel}</p>
           <div className="mb-10 mt-4 max-w-3xl">
-            <h2 className="text-3xl font-semibold tracking-[-0.02em] sm:text-4xl">
-              Powerful features for modular API architecture
-            </h2>
-            <p className="mt-3 text-muted-foreground">
-              Build faster with open-source API modules that stay independent, integrate cleanly, and scale across
-              multiple frameworks.
-            </p>
+            <h2 className="text-3xl font-semibold tracking-[-0.02em] sm:text-4xl">{home.featuresTitle}</h2>
+            <p className="mt-3 text-muted-foreground">{home.featuresDescription}</p>
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {featureBenefits.map((feature) => (
+            {home.featureBenefits.map((feature) => (
               <article key={feature.title} className="rounded-2xl border border-border bg-card p-6">
                 <h3 className="text-lg font-semibold">{feature.title}</h3>
                 <p className="mt-3 text-sm leading-6 text-muted-foreground">{feature.description}</p>
@@ -258,17 +153,14 @@ export function HomePage() {
 
         <section className="border-y border-border bg-muted/40">
           <div className="mx-auto max-w-[1180px] px-6 py-16 sm:px-8">
-            <p className="text-xs font-medium uppercase tracking-[0.22em] text-primary">Testimonial</p>
+            <p className="text-xs font-medium uppercase tracking-[0.22em] text-primary">{home.testimonialLabel}</p>
             <article className="mt-5 rounded-3xl border border-border bg-card p-8">
-              <p className="text-2xl font-medium leading-relaxed sm:text-3xl">
-                “We do not have an official customer testimonial yet. If everything goes well, we will publish our
-                first real user story here very soon.”
-              </p>
+              <p className="text-2xl font-medium leading-relaxed sm:text-3xl">“{home.testimonialQuote}”</p>
               <div className="mt-6 flex items-center gap-3">
                 <div className="h-10 w-10 rounded-full bg-primary" />
                 <div>
-                  <p className="text-sm font-semibold">Coming soon</p>
-                  <p className="text-xs text-muted-foreground">Future API-Kit customer case study</p>
+                  <p className="text-sm font-semibold">{home.testimonialStatus}</p>
+                  <p className="text-xs text-muted-foreground">{home.testimonialSubtext}</p>
                 </div>
               </div>
             </article>
@@ -277,40 +169,28 @@ export function HomePage() {
 
         <section className="mx-auto max-w-[1180px] px-6 py-16 sm:px-8">
           <div className="mb-10 max-w-3xl">
-            <h2 className="text-3xl font-semibold tracking-[-0.02em] sm:text-4xl">
-              API reliability you can verify in production
-            </h2>
-            <p className="mt-4 text-muted-foreground">
-              API-Kit modules are designed to stay compatible when combined. You get consistent error handling,
-              request validation for critical routes, and performance visibility so teams can see what is fast and what
-              needs optimization.
-            </p>
+            <h2 className="text-3xl font-semibold tracking-[-0.02em] sm:text-4xl">{home.reliabilityTitle}</h2>
+            <p className="mt-4 text-muted-foreground">{home.reliabilityDescription}</p>
           </div>
 
           <div className="grid gap-4 lg:grid-cols-2">
-            <ReliabilityFocusPanel />
+            <ReliabilityFocusPanel locale={locale} />
 
             <div className="grid gap-4">
               <article className="rounded-2xl border border-border bg-card p-6">
-                <h3 className="text-lg font-semibold">Request quality insights</h3>
-                <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                  Surface invalid payload patterns, repeated failure points, and routes that need stronger validation
-                  before they impact end users.
-                </p>
+                <h3 className="text-lg font-semibold">{home.requestQualityTitle}</h3>
+                <p className="mt-2 text-sm leading-6 text-muted-foreground">{home.requestQualityDescription}</p>
                 <div className="mt-4 h-28 rounded-xl border border-border bg-[linear-gradient(to_top,rgba(29,171,122,0.20),transparent),repeating-linear-gradient(to_right,transparent,transparent_26px,rgba(0,0,0,0.06)_26px,rgba(0,0,0,0.06)_27px)]" />
               </article>
 
               <article className="rounded-2xl border border-border bg-card p-6">
-                <h3 className="text-lg font-semibold">Performance observability</h3>
-                <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                  Inspect latency trends, slow endpoints, and service-level logs so your team knows exactly what is
-                  fast and what needs tuning.
-                </p>
+                <h3 className="text-lg font-semibold">{home.performanceObservabilityTitle}</h3>
+                <p className="mt-2 text-sm leading-6 text-muted-foreground">{home.performanceObservabilityDescription}</p>
                 <div className="mt-4 grid grid-cols-3 gap-2">
                   {[
-                    ["Error Events", "24"],
-                    ["P95 Logs", "98"],
-                    ["Fast Routes", "100%"],
+                    [home.metricsLabels[0], "24"],
+                    [home.metricsLabels[1], "98"],
+                    [home.metricsLabels[2], "100%"],
                   ].map(([label, value]) => (
                     <div key={label} className="rounded-lg border border-border bg-muted p-2.5">
                       <p className="text-[11px] text-muted-foreground">{label}</p>
@@ -326,12 +206,12 @@ export function HomePage() {
         <section className="border-y border-border bg-muted/40">
           <div className="mx-auto max-w-[1180px] px-6 py-16 sm:px-8">
             <div className="mb-8 max-w-3xl">
-              <h2 className="text-3xl font-semibold tracking-[-0.02em] sm:text-4xl">Frequently asked questions</h2>
-              <p className="mt-3 text-muted-foreground">Most teams ask these before integrating API-Kit modules.</p>
+              <h2 className="text-3xl font-semibold tracking-[-0.02em] sm:text-4xl">{home.faqTitle}</h2>
+              <p className="mt-3 text-muted-foreground">{home.faqSubtitle}</p>
             </div>
 
             <div className="space-y-3">
-              {faqItems.map((item, index) => (
+              {home.faqItems.map((item, index) => (
                 <details
                   key={item.q}
                   className="group rounded-xl border border-border bg-card p-5"
@@ -352,30 +232,27 @@ export function HomePage() {
         <section className="mx-auto max-w-[1180px] px-6 py-18 sm:px-8">
           <div className="rounded-3xl border border-border bg-gradient-to-br from-primary/20 via-primary/10 to-background p-8 sm:p-12">
             <h2 className="text-3xl font-semibold tracking-[-0.02em] sm:text-5xl">
-              Try API-Kit
+              {home.ctaTitleLine1}
               <br className="hidden sm:block" />
-              in your stack today
+              {home.ctaTitleLine2}
             </h2>
-            <p className="mt-4 max-w-2xl text-muted-foreground">
-              Start with one open-source microservice, choose your framework implementation, and compose more APIs as
-              your product grows.
-            </p>
+            <p className="mt-4 max-w-2xl text-muted-foreground">{home.ctaDescription}</p>
             <div className="mt-7 flex flex-wrap gap-3">
               <Link
-                href="/docs/api-kit"
+                href={localizeHref(locale, "/docs/api-kit")}
                 className="rounded-xl bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground"
               >
-                Browse API Modules
+                {home.ctaPrimaryButton}
               </Link>
               <Link
-                href="/docs"
+                href={localizeHref(locale, "/docs")}
                 className="rounded-xl border border-border bg-card px-5 py-2.5 text-sm text-foreground"
               >
-                Read Documentation
+                {home.ctaSecondaryButton}
               </Link>
             </div>
             <div className="mt-5 flex flex-wrap gap-2 text-xs text-muted-foreground">
-              {["Auth", "Billing", "Ecommerce", "Notification", "Organization", "Rate Limits", "SDK"].map((module) => (
+              {moduleChips.map((module) => (
                 <span key={module} className="rounded-full border border-border bg-card px-3 py-1.5">
                   {module}
                 </span>
@@ -401,12 +278,10 @@ export function HomePage() {
                 </span>
                 <p className="text-sm font-semibold">API-Kit</p>
               </div>
-              <p className="mt-3 max-w-sm text-sm leading-6 text-muted-foreground">
-                An open-source ecosystem of independent API microservices that teams can adopt module by module.
-              </p>
+              <p className="mt-3 max-w-sm text-sm leading-6 text-muted-foreground">{home.footerDescription}</p>
             </div>
 
-            {footerGroups.map((group) => (
+            {home.footerGroups.map((group) => (
               <div key={group.title}>
                 <h3 className="text-sm font-semibold">{group.title}</h3>
                 <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
@@ -424,7 +299,7 @@ export function HomePage() {
                           {link.label}
                         </a>
                       ) : (
-                        <Link href={link.href} className="transition hover:text-foreground">
+                        <Link href={localizeHref(locale, link.href)} className="transition hover:text-foreground">
                           {link.label}
                         </Link>
                       )}
@@ -435,9 +310,7 @@ export function HomePage() {
             ))}
           </div>
 
-          <div className="mt-10 border-t border-border pt-4 text-xs text-muted-foreground">
-            © 2026 API-Kit, Inc. Open-source API microservices for every stack.
-          </div>
+          <div className="mt-10 border-t border-border pt-4 text-xs text-muted-foreground">{home.footerCopyright}</div>
         </div>
       </footer>
     </div>

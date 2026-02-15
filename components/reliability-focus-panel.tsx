@@ -1,45 +1,23 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import type { Locale } from "@/lib/i18n/config";
+import { getMessages } from "@/messages";
 
 type FocusKey = "compatibility" | "reliability";
 
-const focusCopy: Record<
-  FocusKey,
-  {
-    steps: string[];
-    stepDescription: string;
-    summary: string;
-  }
-> = {
-  compatibility: {
-    steps: [
-      "Align contracts across API modules",
-      "Keep version boundaries predictable",
-      "Reuse auth and event conventions",
-      "Compose services without schema drift",
-    ],
-    stepDescription: "Compatibility workflow block",
-    summary:
-      "Keep modules predictable at scale with compatibility checks, shared error patterns, and validation on the endpoints your users hit the most.",
-  },
-  reliability: {
-    steps: [
-      "Standardize request contracts",
-      "Validate high-volume routes",
-      "Handle errors consistently",
-      "Track performance in real time",
-    ],
-    stepDescription: "Reliability workflow block",
-    summary:
-      "Monitor slow routes, repeated failures, and request quality so teams can quickly find what is fast and what needs optimization.",
-  },
+type ReliabilityFocusPanelProps = {
+  locale: Locale;
 };
 
-export function ReliabilityFocusPanel() {
+export function ReliabilityFocusPanel({ locale }: ReliabilityFocusPanelProps) {
   const [activeFocus, setActiveFocus] = useState<FocusKey>("compatibility");
-
-  const activeCopy = useMemo(() => focusCopy[activeFocus], [activeFocus]);
+  const messages = getMessages(locale);
+  const focusMessages = messages.reliabilityFocus;
+  const activeCopy = useMemo(
+    () => focusMessages[activeFocus],
+    [activeFocus, focusMessages],
+  );
 
   return (
     <article className="rounded-2xl border border-border bg-card p-6">
@@ -51,7 +29,7 @@ export function ReliabilityFocusPanel() {
             activeFocus === "compatibility" ? "bg-primary/20 text-primary" : "text-muted-foreground"
           }`}
         >
-          Compatibility
+          {focusMessages.compatibilityLabel}
         </button>
         <button
           type="button"
@@ -60,7 +38,7 @@ export function ReliabilityFocusPanel() {
             activeFocus === "reliability" ? "bg-primary/20 text-primary" : "text-muted-foreground"
           }`}
         >
-          Reliability
+          {focusMessages.reliabilityLabel}
         </button>
       </div>
 
