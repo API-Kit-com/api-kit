@@ -74,24 +74,28 @@ const featureBenefits = [
 
 const faqItems = [
   {
-    q: "What does this platform help with?",
-    a: "It centralizes policy, learning, and operational knowledge so human teams and AI agents can execute consistently.",
+    q: "What is API-Kit?",
+    a: "API-Kit is an open-source catalog of independent API microservices that teams can plug into their products instead of building core services from scratch.",
   },
   {
-    q: "Is customer data used for model training?",
-    a: "No. Sensitive workspace data is isolated with strict controls and can be configured for zero-retention workflows.",
+    q: "Can we use only one microservice at a time?",
+    a: "Yes. Every API is shipped as an independent microservice, so you can adopt only what you need and add more services later.",
   },
   {
-    q: "Can we migrate from existing LMS or wiki tools?",
-    a: "Yes. Bulk importers and guided migration flows support content transfer, role mapping, and redirect strategies.",
+    q: "Which stacks are supported?",
+    a: "You can choose implementations across Node/JS/TS, Python, Java/Kotlin, and other ecosystems such as Go, .NET, Rails, Elixir, and Rust.",
   },
   {
-    q: "Do we need additional software to start?",
-    a: "You can start with core modules immediately, then plug in SSO, HRIS, and other integrations over time.",
+    q: "Can we self-host and customize the APIs?",
+    a: "Yes. Each microservice is open source, so your team can inspect, adapt, and run it in your own infrastructure.",
   },
   {
-    q: "Is there a free trial?",
-    a: "Yes. You can test the core platform with a free trial and evaluate enterprise controls before rollout.",
+    q: "How do services connect when used together?",
+    a: "Services remain independent but follow shared contracts and integration patterns, so Auth, Billing, and Notifications can be composed in one flow.",
+  },
+  {
+    q: "Do we get visibility for errors and performance?",
+    a: "Yes. API-Kit focuses on consistent error handling, request validation for critical routes, and logs to identify fast and slow endpoints.",
   },
 ];
 
@@ -305,7 +309,7 @@ export function HomePage() {
           <div className="mx-auto max-w-[1180px] px-6 py-16 sm:px-8">
             <div className="mb-8 max-w-3xl">
               <h2 className="text-3xl font-semibold tracking-[-0.02em] sm:text-4xl">Frequently asked questions</h2>
-              <p className="mt-3 text-muted-foreground">Most teams ask these before rollout.</p>
+              <p className="mt-3 text-muted-foreground">Most teams ask these before integrating API-Kit modules.</p>
             </div>
 
             <div className="space-y-3">
