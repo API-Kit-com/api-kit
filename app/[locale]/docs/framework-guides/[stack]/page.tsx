@@ -6,19 +6,25 @@ import {
   isFrameworkGuideKey,
   type FrameworkGuideKey,
 } from "@/components/docs-content";
+import { SUPPORTED_LOCALES, isSupportedLocale } from "@/lib/i18n/config";
 
 type FrameworkGuidePageProps = {
   params: Promise<{
+    locale: string;
     stack: string;
   }>;
 };
 
 export function generateStaticParams() {
-  return frameworkGuides.map((guide) => ({ stack: guide.key }));
+  return SUPPORTED_LOCALES.flatMap((locale) => frameworkGuides.map((guide) => ({ locale, stack: guide.key })));
 }
 
 export default async function FrameworkGuidePage({ params }: FrameworkGuidePageProps) {
-  const { stack } = await params;
+  const { locale, stack } = await params;
+
+  if (!isSupportedLocale(locale)) {
+    notFound();
+  }
 
   if (!isFrameworkGuideKey(stack)) {
     notFound();
@@ -32,6 +38,7 @@ export default async function FrameworkGuidePage({ params }: FrameworkGuidePageP
 
   return (
     <DocsShell
+      locale={locale}
       activeGroup="framework-guides"
       activeItemId={stackKey}
       pageOverride={current.page}
