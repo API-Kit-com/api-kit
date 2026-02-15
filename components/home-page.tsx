@@ -40,34 +40,34 @@ const performanceCards = [
 
 const featureBenefits = [
   {
-    title: "Structured Learning",
+    title: "Download only what you need",
     description:
-      "Build role-based training tracks with checkpoints, progress visibility, and accountability at scale.",
+      "Adopt APIs module by module, so teams can start with one service and expand without platform rewrites.",
   },
   {
-    title: "Smart Access Controls",
+    title: "Shared contracts across services",
     description:
-      "Deliver the right knowledge to the right person with permissioned workflows and secure sharing.",
+      "Keep integrations reliable with consistent schemas, events, and auth boundaries between modules.",
   },
   {
-    title: "Auto Certifications",
+    title: "Framework-specific implementations",
     description:
-      "Issue completion certificates instantly and maintain an auditable compliance history.",
+      "Use production-ready patterns for Node, Python, Java/Kotlin, Go, .NET, Rails, and other ecosystems.",
   },
   {
-    title: "HRIS Sync",
+    title: "Composable module architecture",
     description:
-      "Automate provisioning, role updates, and offboarding from your existing people systems.",
+      "Auth, Billing, Notifications, and Organization services stay independent but plug together in complete flows.",
   },
   {
-    title: "Adaptive Knowledge Hub",
+    title: "Open-source by default",
     description:
-      "Keep a searchable living knowledge base that evolves with teams, roles, and business context.",
+      "Inspect, extend, and self-host API implementations without depending on closed platform internals.",
   },
   {
-    title: "Enterprise Ready",
+    title: "Scale each service independently",
     description:
-      "Scale governance, reliability, and control across multiple departments and regulated environments.",
+      "Deploy heavy-traffic modules separately while preserving predictable integration behavior across the platform.",
   },
 ];
 
@@ -217,10 +217,11 @@ export function HomePage() {
           <p className="text-xs font-medium uppercase tracking-[0.22em] text-primary">Features & Benefits</p>
           <div className="mb-10 mt-4 max-w-3xl">
             <h2 className="text-3xl font-semibold tracking-[-0.02em] sm:text-4xl">
-              Powerful features that remove routine effort
+              Powerful features for modular API architecture
             </h2>
             <p className="mt-3 text-muted-foreground">
-              Equip teams with structured processes and guardrails so they can focus on decisions that create impact.
+              Build faster with open-source API modules that stay independent, integrate cleanly, and scale across
+              multiple frameworks.
             </p>
           </div>
 
