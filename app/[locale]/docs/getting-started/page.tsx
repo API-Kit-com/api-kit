@@ -1,6 +1,6 @@
-import { notFound } from "next/navigation";
-import { DocsShell } from "@/components/docs-shell";
+import { redirect } from "next/navigation";
 import { isSupportedLocale } from "@/lib/i18n/config";
+import { toLocalePath } from "@/lib/i18n/routing";
 
 type GettingStartedDocsPageProps = {
   params: Promise<{
@@ -10,7 +10,9 @@ type GettingStartedDocsPageProps = {
 
 export default async function GettingStartedDocsPage({ params }: GettingStartedDocsPageProps) {
   const { locale } = await params;
-  if (!isSupportedLocale(locale)) notFound();
+  if (!isSupportedLocale(locale)) {
+    redirect(toLocalePath("en", "/docs/getting-started/introduction"));
+  }
 
-  return <DocsShell locale={locale} activeGroup="getting-started" />;
+  redirect(toLocalePath(locale, "/docs/getting-started/introduction"));
 }
