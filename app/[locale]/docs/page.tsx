@@ -11,8 +11,8 @@ type DocsPageProps = {
 export default async function DocsPage({ params }: DocsPageProps) {
   const { locale } = await params;
   if (!isSupportedLocale(locale)) {
-    redirect(toLocalePath("en", "/docs/getting-started"));
+    redirect(toLocalePath("en", "/docs/getting-started/introduction"));
   }
 
-  redirect(toLocalePath(locale, "/docs/getting-started"));
+  redirect(toLocalePath(locale, "/docs/getting-started/introduction"));
 }
