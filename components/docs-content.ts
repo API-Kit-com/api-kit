@@ -13,6 +13,7 @@ export type ApiKitModuleKey =
   | "sdk";
 
 export type FrameworkGuideKey = "node-js-ts" | "python" | "java-kotlin" | "other-stacks";
+export type GettingStartedTopicKey = "introduction" | "installation" | "project-structure" | "routing";
 
 export type DocsSection = {
   id: string;
@@ -50,6 +51,13 @@ type ApiKitModule = {
 
 type FrameworkGuide = {
   key: FrameworkGuideKey;
+  label: string;
+  href: string;
+  page: DocsPageContent;
+};
+
+type GettingStartedTopic = {
+  key: GettingStartedTopicKey;
   label: string;
   href: string;
   page: DocsPageContent;
@@ -342,6 +350,86 @@ export const frameworkGuides: FrameworkGuide[] = [
   },
 ];
 
+export const gettingStartedTopics: GettingStartedTopic[] = [
+  {
+    key: "introduction",
+    label: "Introduction",
+    href: "/docs/getting-started/introduction",
+    page: {
+      breadcrumb: "Getting Started / Introduction",
+      pageTitle: "Introduction",
+      description:
+        "API-Kit gives you modular building blocks to ship authentication, billing, and operational APIs with a consistent developer experience.",
+      sections: [
+        {
+          id: "introduction",
+          title: "Introduction",
+          description:
+            "API-Kit gives you modular building blocks to ship authentication, billing, and operational APIs with a consistent developer experience.",
+        },
+      ],
+    },
+  },
+  {
+    key: "installation",
+    label: "Installation",
+    href: "/docs/getting-started/installation",
+    page: {
+      breadcrumb: "Getting Started / Installation",
+      pageTitle: "Installation",
+      description:
+        "Create your project, install dependencies, and run the local development server.",
+      sections: [
+        {
+          id: "installation",
+          title: "Installation",
+          description:
+            "Create your project, install dependencies, and run the local development server.",
+          code: `npm create next-app@latest api-kit\ncd api-kit\nnpm install\nnpm run dev`,
+        },
+      ],
+    },
+  },
+  {
+    key: "project-structure",
+    label: "Project Structure",
+    href: "/docs/getting-started/project-structure",
+    page: {
+      breadcrumb: "Getting Started / Project Structure",
+      pageTitle: "Project Structure",
+      description:
+        "Keep route files in app/, shared UI in components/, utilities in lib/, and static assets in public/ for a scalable structure.",
+      sections: [
+        {
+          id: "project-structure",
+          title: "Project Structure",
+          description:
+            "Keep route files in app/, shared UI in components/, utilities in lib/, and static assets in public/ for a scalable structure.",
+        },
+      ],
+    },
+  },
+  {
+    key: "routing",
+    label: "Routing",
+    href: "/docs/getting-started/routing",
+    page: {
+      breadcrumb: "Getting Started / Routing",
+      pageTitle: "Routing",
+      description:
+        "Use file-based routing under app/ and colocate nested layouts when sections share navigation, permissions, or state.",
+      sections: [
+        {
+          id: "routing",
+          title: "Routing",
+          description:
+            "Use file-based routing under app/ and colocate nested layouts when sections share navigation, permissions, or state.",
+        },
+      ],
+    },
+  },
+];
+
 export const apiKitModuleMap = Object.fromEntries(apiKitModules.map((module) => [module.key, module])) as Record<
   ApiKitModuleKey,
   ApiKitModule
@@ -352,6 +440,11 @@ export const frameworkGuideMap = Object.fromEntries(frameworkGuides.map((guide) 
   FrameworkGuide
 >;
 
+export const gettingStartedTopicMap = Object.fromEntries(gettingStartedTopics.map((topic) => [topic.key, topic])) as Record<
+  GettingStartedTopicKey,
+  GettingStartedTopic
+>;
+
 export function isApiKitModuleKey(value: string): value is ApiKitModuleKey {
   return Object.hasOwn(apiKitModuleMap, value);
 }
@@ -360,17 +453,20 @@ export function isFrameworkGuideKey(value: string): value is FrameworkGuideKey {
   return Object.hasOwn(frameworkGuideMap, value);
 }
 
+export function isGettingStartedTopicKey(value: string): value is GettingStartedTopicKey {
+  return Object.hasOwn(gettingStartedTopicMap, value);
+}
+
 export const docsNavigation: DocsNavGroup[] = [
   {
     key: "getting-started",
     title: "Getting Started",
-    href: "/docs/getting-started",
-    items: [
-      { label: "Introduction", id: "introduction", href: "/docs/getting-started#introduction" },
-      { label: "Installation", id: "installation", href: "/docs/getting-started#installation" },
-      { label: "Project Structure", id: "project-structure", href: "/docs/getting-started#project-structure" },
-      { label: "Routing", id: "routing", href: "/docs/getting-started#routing" },
-    ],
+    href: "/docs/getting-started/introduction",
+    items: gettingStartedTopics.map((topic) => ({
+      label: topic.label,
+      id: topic.key,
+      href: topic.href,
+    })),
   },
   {
     key: "core-concepts",
@@ -545,9 +641,26 @@ export function getFrameworkGuideMap(locale: Locale): Record<FrameworkGuideKey, 
   >;
 }
 
+export function getGettingStartedTopics(locale: Locale): GettingStartedTopic[] {
+  if (locale === "en") return gettingStartedTopics;
+  return gettingStartedTopics.map((topic) => ({
+    ...topic,
+    label: localizeText(locale, topic.label),
+    page: localizePage(locale, topic.page),
+  }));
+}
+
+export function getGettingStartedTopicMap(locale: Locale): Record<GettingStartedTopicKey, GettingStartedTopic> {
+  return Object.fromEntries(getGettingStartedTopics(locale).map((topic) => [topic.key, topic])) as Record<
+    GettingStartedTopicKey,
+    GettingStartedTopic
+  >;
+}
+
 export function getDocsNavigation(locale: Locale): DocsNavGroup[] {
   if (locale === "en") return docsNavigation;
 
+  const localizedGettingStartedTopics = getGettingStartedTopics(locale);
   const localizedFrameworkGuides = getFrameworkGuides(locale);
   const localizedApiKitModules = getApiKitModules(locale);
 
@@ -555,9 +668,10 @@ export function getDocsNavigation(locale: Locale): DocsNavGroup[] {
     {
       ...docsNavigation[0],
       title: localizeText(locale, docsNavigation[0].title),
-      items: docsNavigation[0].items.map((item) => ({
-        ...item,
-        label: localizeText(locale, item.label),
+      items: localizedGettingStartedTopics.map((topic) => ({
+        label: topic.label,
+        id: topic.key,
+        href: topic.href,
       })),
     },
     {
