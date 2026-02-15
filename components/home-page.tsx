@@ -102,12 +102,29 @@ const faqItems = [
 
 const footerGroups = [
   {
-    title: "Navigations",
-    links: ["Product", "Company", "Enterprise", "Coverage", "News"],
+    title: "Navigation",
+    links: [
+      { label: "Showcase", href: "/showcase" },
+      { label: "Docs", href: "/docs" },
+      { label: "Templates", href: "/templates" },
+      { label: "Enterprise", href: "/enterprise" },
+    ],
   },
   {
-    title: "Company",
-    links: ["Security", "Legal & Regulatory", "Terms of Service", "Privacy Policy"],
+    title: "Documentation",
+    links: [
+      { label: "API-Kit", href: "/docs/api-kit" },
+      { label: "Getting Started", href: "/docs/getting-started" },
+      { label: "Core Concepts", href: "/docs/core-concepts" },
+      { label: "Framework Guides", href: "/docs/framework-guides" },
+    ],
+  },
+  {
+    title: "Community",
+    links: [
+      { label: "GitHub", href: "https://github.com/API-Kit-com", external: true },
+      { label: "More links coming soon", href: "#", comingSoon: true },
+    ],
   },
 ];
 
@@ -370,7 +387,7 @@ export function HomePage() {
 
       <footer className="border-t border-border bg-background">
         <div className="mx-auto max-w-[1180px] px-6 py-10 sm:px-8">
-          <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
+          <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
             <div>
               <div className="flex items-center gap-2">
                 <span className="grid h-8 w-8 place-items-center rounded-lg bg-primary">
@@ -385,9 +402,8 @@ export function HomePage() {
                 <p className="text-sm font-semibold">API-Kit</p>
               </div>
               <p className="mt-3 max-w-sm text-sm leading-6 text-muted-foreground">
-                A unified ecosystem for human learning and agent governance.
+                An open-source ecosystem of independent API microservices that teams can adopt module by module.
               </p>
-              <p className="mt-4 text-xs text-muted-foreground">All systems operational</p>
             </div>
 
             {footerGroups.map((group) => (
@@ -395,10 +411,23 @@ export function HomePage() {
                 <h3 className="text-sm font-semibold">{group.title}</h3>
                 <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
                   {group.links.map((link) => (
-                    <li key={link}>
-                      <a href="#" className="transition hover:text-foreground">
-                        {link}
-                      </a>
+                    <li key={link.label}>
+                      {link.comingSoon ? (
+                        <span className="text-muted-foreground/70">{link.label}</span>
+                      ) : link.external ? (
+                        <a
+                          href={link.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="transition hover:text-foreground"
+                        >
+                          {link.label}
+                        </a>
+                      ) : (
+                        <Link href={link.href} className="transition hover:text-foreground">
+                          {link.label}
+                        </Link>
+                      )}
                     </li>
                   ))}
                 </ul>
@@ -407,7 +436,7 @@ export function HomePage() {
           </div>
 
           <div className="mt-10 border-t border-border pt-4 text-xs text-muted-foreground">
-            © 2026 API-Kit, Inc. Terms of Service | Privacy Policy
+            © 2026 API-Kit, Inc. Open-source API microservices for every stack.
           </div>
         </div>
       </footer>
