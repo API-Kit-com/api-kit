@@ -7,7 +7,7 @@ export default function ShowcasePage() {
           <div className="relative mx-auto max-w-4xl px-6 py-20 sm:px-8">
             <h1 className="text-3xl font-semibold tracking-tight">Showcase</h1>
             <p className="mt-3 text-muted-foreground">
-              Showcase page em construção. Em breve vamos listar cases e projetos em destaque.
+              The Showcase page is under construction. Soon we will list featured case studies and projects.
             </p>
           </div>
         </section>

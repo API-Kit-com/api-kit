@@ -7,7 +7,7 @@ export default function EnterprisePage() {
           <div className="relative mx-auto max-w-4xl px-6 py-20 sm:px-8">
             <h1 className="text-3xl font-semibold tracking-tight">Enterprise</h1>
             <p className="mt-3 text-muted-foreground">
-              Enterprise page em construção. Vamos detalhar recursos corporativos aqui.
+              The Enterprise page is under construction. We will detail enterprise-grade capabilities here.
             </p>
           </div>
         </section>
