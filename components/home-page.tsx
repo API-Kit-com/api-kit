@@ -102,12 +102,12 @@ const faqItems = [
 
 const footerGroups = [
   {
-    title: "Navigations",
-    links: ["Product", "Company", "Enterprise", "Coverage", "News"],
+    title: "Ecosystem",
+    links: ["API Modules", "Framework Guides", "Documentation", "Showcase", "Templates"],
   },
   {
-    title: "Company",
-    links: ["Security", "Legal & Regulatory", "Terms of Service", "Privacy Policy"],
+    title: "Project",
+    links: ["Open Source", "Contributing", "Roadmap", "Security", "Status"],
   },
 ];
 
@@ -385,9 +385,8 @@ export function HomePage() {
                 <p className="text-sm font-semibold">API-Kit</p>
               </div>
               <p className="mt-3 max-w-sm text-sm leading-6 text-muted-foreground">
-                A unified ecosystem for human learning and agent governance.
+                An open-source ecosystem of independent API microservices that teams can adopt module by module.
               </p>
-              <p className="mt-4 text-xs text-muted-foreground">All systems operational</p>
             </div>
 
             {footerGroups.map((group) => (
@@ -407,7 +406,7 @@ export function HomePage() {
           </div>
 
           <div className="mt-10 border-t border-border pt-4 text-xs text-muted-foreground">
-            © 2026 API-Kit, Inc. Terms of Service | Privacy Policy
+            © 2026 API-Kit, Inc. Open-source API microservices for every stack.
           </div>
         </div>
       </footer>
