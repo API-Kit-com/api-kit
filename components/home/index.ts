@@ -1,0 +1,9 @@
+export { HomeHeroSection } from "@/components/home/home-hero-section";
+export { HomeStackMarqueeSection } from "@/components/home/home-stack-marquee-section";
+export { HomeMicroservicesSection } from "@/components/home/home-microservices-section";
+export { HomeFeaturesSection } from "@/components/home/home-features-section";
+export { HomeTestimonialSection } from "@/components/home/home-testimonial-section";
+export { HomeReliabilitySection } from "@/components/home/home-reliability-section";
+export { HomeFaqSection } from "@/components/home/home-faq-section";
+export { HomeFinalCtaSection } from "@/components/home/home-final-cta-section";
+export { HomeFooter } from "@/components/home/home-footer";
