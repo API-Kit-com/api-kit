@@ -358,7 +358,7 @@ export const frameworkGuides: FrameworkGuide[] = [
   },
 ];
 
-const gettingStartedComingSoonDescription = "This page is under construction and will be implemented soon.";
+const docsTopicComingSoonDescription = "This page is under construction and will be implemented soon.";
 
 export const gettingStartedTopics: GettingStartedTopic[] = [
   {
@@ -368,12 +368,12 @@ export const gettingStartedTopics: GettingStartedTopic[] = [
     page: {
       breadcrumb: "Getting Started / Introduction",
       pageTitle: "Introduction",
-      description: gettingStartedComingSoonDescription,
+      description: docsTopicComingSoonDescription,
       sections: [
         {
           id: "introduction",
           title: "Introduction",
-          description: gettingStartedComingSoonDescription,
+          description: docsTopicComingSoonDescription,
         },
       ],
     },
@@ -385,12 +385,12 @@ export const gettingStartedTopics: GettingStartedTopic[] = [
     page: {
       breadcrumb: "Getting Started / Installation",
       pageTitle: "Installation",
-      description: gettingStartedComingSoonDescription,
+      description: docsTopicComingSoonDescription,
       sections: [
         {
           id: "installation",
           title: "Installation",
-          description: gettingStartedComingSoonDescription,
+          description: docsTopicComingSoonDescription,
         },
       ],
     },
@@ -402,12 +402,12 @@ export const gettingStartedTopics: GettingStartedTopic[] = [
     page: {
       breadcrumb: "Getting Started / Project Structure",
       pageTitle: "Project Structure",
-      description: gettingStartedComingSoonDescription,
+      description: docsTopicComingSoonDescription,
       sections: [
         {
           id: "project-structure",
           title: "Project Structure",
-          description: gettingStartedComingSoonDescription,
+          description: docsTopicComingSoonDescription,
         },
       ],
     },
@@ -419,12 +419,12 @@ export const gettingStartedTopics: GettingStartedTopic[] = [
     page: {
       breadcrumb: "Getting Started / Routing",
       pageTitle: "Routing",
-      description: gettingStartedComingSoonDescription,
+      description: docsTopicComingSoonDescription,
       sections: [
         {
           id: "routing",
           title: "Routing",
-          description: gettingStartedComingSoonDescription,
+          description: docsTopicComingSoonDescription,
         },
       ],
     },
@@ -439,14 +439,12 @@ export const coreConceptTopics: CoreConceptTopic[] = [
     page: {
       breadcrumb: "Core Concepts / Data Fetching",
       pageTitle: "Data Fetching",
-      description:
-        "Fetch server data in async components, cache per route requirements, and revalidate where your business rules demand freshness.",
+      description: docsTopicComingSoonDescription,
       sections: [
         {
           id: "data-fetching",
           title: "Data Fetching",
-          description:
-            "Fetch server data in async components, cache per route requirements, and revalidate where your business rules demand freshness.",
+          description: docsTopicComingSoonDescription,
         },
       ],
     },
@@ -458,14 +456,12 @@ export const coreConceptTopics: CoreConceptTopic[] = [
     page: {
       breadcrumb: "Core Concepts / Styling",
       pageTitle: "Styling",
-      description:
-        "Build interfaces with shared tokens, reusable primitives, and utility classes so product surfaces remain consistent.",
+      description: docsTopicComingSoonDescription,
       sections: [
         {
           id: "styling",
           title: "Styling",
-          description:
-            "Build interfaces with shared tokens, reusable primitives, and utility classes so product surfaces remain consistent.",
+          description: docsTopicComingSoonDescription,
         },
       ],
     },
@@ -477,14 +473,12 @@ export const coreConceptTopics: CoreConceptTopic[] = [
     page: {
       breadcrumb: "Core Concepts / Deployment",
       pageTitle: "Deployment",
-      description:
-        "Promote builds through staging and production with environment-scoped configuration, observability, and rollback safety.",
+      description: docsTopicComingSoonDescription,
       sections: [
         {
           id: "deployment",
           title: "Deployment",
-          description:
-            "Promote builds through staging and production with environment-scoped configuration, observability, and rollback safety.",
+          description: docsTopicComingSoonDescription,
         },
       ],
     },
