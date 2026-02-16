@@ -81,14 +81,12 @@ export const apiKitModules: ApiKitModule[] = [
     page: {
       breadcrumb: "API-Kit / Auth",
       pageTitle: "Auth",
-      description:
-        "Implement authentication flows with session management, token validation, and role-aware authorization rules.",
+      description: docsTopicComingSoonDescription,
       sections: [
         {
           id: "overview",
           title: "Overview",
-          description:
-            "Use Auth to handle sign-in, session refresh, and permissions with pluggable identity providers.",
+          description: docsTopicComingSoonDescription,
         },
       ],
     },
@@ -100,14 +98,12 @@ export const apiKitModules: ApiKitModule[] = [
     page: {
       breadcrumb: "API-Kit / Billing",
       pageTitle: "Billing",
-      description:
-        "Run subscription and usage-based billing with invoices, plan upgrades, and lifecycle webhooks.",
+      description: docsTopicComingSoonDescription,
       sections: [
         {
           id: "overview",
           title: "Overview",
-          description:
-            "Configure plans, payment methods, and recurring charges while tracking customer billing status.",
+          description: docsTopicComingSoonDescription,
         },
       ],
     },
@@ -119,14 +115,12 @@ export const apiKitModules: ApiKitModule[] = [
     page: {
       breadcrumb: "API-Kit / Ecommerce",
       pageTitle: "Ecommerce",
-      description:
-        "Compose product catalog, cart, checkout, and order endpoints for custom commerce experiences.",
+      description: docsTopicComingSoonDescription,
       sections: [
         {
           id: "overview",
           title: "Overview",
-          description:
-            "Model products, inventory, and purchase flows with APIs built for headless storefronts.",
+          description: docsTopicComingSoonDescription,
         },
       ],
     },
@@ -138,14 +132,12 @@ export const apiKitModules: ApiKitModule[] = [
     page: {
       breadcrumb: "API-Kit / Notification",
       pageTitle: "Notification",
-      description:
-        "Deliver transactional communications through email, SMS, and push with retries and tracking.",
+      description: docsTopicComingSoonDescription,
       sections: [
         {
           id: "overview",
           title: "Overview",
-          description:
-            "Centralize delivery channels, templates, and provider failover in a single notification layer.",
+          description: docsTopicComingSoonDescription,
         },
       ],
     },
@@ -157,14 +149,12 @@ export const apiKitModules: ApiKitModule[] = [
     page: {
       breadcrumb: "API-Kit / Organization",
       pageTitle: "Organization",
-      description:
-        "Manage workspaces, members, and permissions for multi-tenant products and enterprise accounts.",
+      description: docsTopicComingSoonDescription,
       sections: [
         {
           id: "overview",
           title: "Overview",
-          description:
-            "Control organization-level settings, invitations, and role policies across teams and environments.",
+          description: docsTopicComingSoonDescription,
         },
       ],
     },
@@ -176,14 +166,12 @@ export const apiKitModules: ApiKitModule[] = [
     page: {
       breadcrumb: "API-Kit / Rate Limits",
       pageTitle: "Rate Limits",
-      description:
-        "Protect APIs with quota policies, burst control, and clear error responses for client retry logic.",
+      description: docsTopicComingSoonDescription,
       sections: [
         {
           id: "overview",
           title: "Overview",
-          description:
-            "Set limits per key or workspace and expose headers so clients can adapt traffic automatically.",
+          description: docsTopicComingSoonDescription,
         },
       ],
     },
@@ -195,14 +183,12 @@ export const apiKitModules: ApiKitModule[] = [
     page: {
       breadcrumb: "API-Kit / SDK",
       pageTitle: "SDK",
-      description:
-        "Integrate faster with typed clients, built-in auth handling, and helpers for pagination and retries.",
+      description: docsTopicComingSoonDescription,
       sections: [
         {
           id: "overview",
           title: "Overview",
-          description:
-            "Use the SDK as the default integration path for consistent request handling and error management.",
+          description: docsTopicComingSoonDescription,
         },
       ],
     },
