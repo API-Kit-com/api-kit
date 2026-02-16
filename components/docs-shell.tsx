@@ -2,8 +2,8 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { getDocsContent, getDocsNavigation, type DocsGroupKey, type DocsPageContent } from "@/components/docs-content";
 import type { Locale } from "@/lib/i18n/config";
-import { getMessages } from "@/messages";
 import { localizeHref } from "@/lib/i18n/routing";
+import { getMessages } from "@/messages";
 
 type DocsShellProps = {
   locale: Locale;
@@ -46,11 +46,10 @@ export function DocsShell({
         ? { href: defaultNextGroup.href, label: shell.next }
         : null
       : nextLink;
+
   const activeGroupConfig = docsNavigation.find((group) => group.key === activeGroup);
   const selectedItemId = activeItemId ?? activeGroupConfig?.items[0]?.id;
-  const breadcrumbItem = activeItemId
-    ? activeGroupConfig?.items.find((item) => item.id === activeItemId)
-    : null;
+  const breadcrumbItem = activeItemId ? activeGroupConfig?.items.find((item) => item.id === activeItemId) : null;
   const breadcrumbs = [
     { label: shell.docsLabel, href: "/docs" },
     ...(activeGroupConfig ? [{ label: activeGroupConfig.title, href: activeGroupConfig.href }] : []),
@@ -62,123 +61,127 @@ export function DocsShell({
       <main className="docs-rails relative min-h-[calc(100vh-4rem)]">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_12%_4%,oklch(0.60_0.13_163_/_0.16),transparent_32%),radial-gradient(circle_at_88%_0%,oklch(0.60_0.13_163_/_0.12),transparent_30%)]" />
 
-        <div className="relative grid grid-cols-1 md:grid-cols-[240px_minmax(0,1fr)] xl:grid-cols-[minmax(0,1fr)_1148px_minmax(0,1fr)]">
-          <aside className="hidden h-[calc(100vh-4rem)] overflow-y-auto px-4 py-8 md:sticky md:top-16 md:block md:border-r md:border-border xl:w-[220px] xl:justify-self-end xl:border-r-0 xl:pr-6">
-            {docsNavigation.map((group) => {
-              const isActiveGroup = group.key === activeGroup;
+        <div className="relative mx-auto w-full max-w-[1520px] px-2 sm:px-4 xl:px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-[248px_minmax(0,1fr)] 2xl:grid-cols-[248px_minmax(0,1fr)_220px]">
+            <aside className="hidden self-start px-4 py-8 lg:sticky lg:top-16 lg:block lg:max-h-[calc(100vh-4rem)] lg:overflow-y-auto lg:border-r lg:border-border 2xl:pr-6">
+              {docsNavigation.map((group) => {
+                const isActiveGroup = group.key === activeGroup;
 
-              return (
-                <div key={group.title} className="mb-7">
-                  <Link
-                    href={localizeHref(locale, group.href)}
-                    className={`mb-2 block text-xs font-semibold uppercase tracking-[0.12em] transition ${
-                      isActiveGroup ? "text-foreground" : "text-muted-foreground hover:text-foreground"
-                    }`}
-                  >
-                    {group.title}
-                  </Link>
-                  <ul className="space-y-1">
-                    {group.items.map((item) => (
-                      <li key={item.label}>
+                return (
+                  <div key={group.title} className="mb-7">
+                    <Link
+                      href={localizeHref(locale, group.href)}
+                      className={`mb-2 block text-xs font-semibold uppercase tracking-[0.12em] transition ${
+                        isActiveGroup ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+                      }`}
+                    >
+                      {group.title}
+                    </Link>
+                    <ul className="space-y-1">
+                      {group.items.map((item) => (
+                        <li key={item.label}>
+                          <Link
+                            href={localizeHref(locale, item.href)}
+                            className={`block rounded-md px-2 py-1.5 text-sm transition hover:bg-accent hover:text-foreground ${
+                              isActiveGroup && item.id === selectedItemId
+                                ? "bg-accent text-foreground"
+                                : isActiveGroup
+                                  ? "text-foreground/80"
+                                  : "text-muted-foreground"
+                            }`}
+                          >
+                            {item.label}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                );
+              })}
+            </aside>
+
+            <div className="docs-center-rails min-w-0">
+              <article className="relative z-10 mx-auto min-w-0 max-w-[920px] px-6 py-10 sm:px-10 xl:px-12">
+                <nav aria-label="Breadcrumb" className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                  <ol className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
+                    {breadcrumbs.map((crumb, index) => (
+                      <li key={`${crumb.label}-${crumb.href}`} className="flex items-center gap-2">
+                        {index > 0 ? <span>/</span> : null}
                         <Link
-                          href={localizeHref(locale, item.href)}
-                          className={`block rounded-md px-2 py-1.5 text-sm transition hover:bg-accent hover:text-foreground ${
-                            isActiveGroup && item.id === selectedItemId
-                              ? "bg-accent text-foreground"
-                              : isActiveGroup
-                                ? "text-foreground/80"
-                                : "text-muted-foreground"
+                          href={localizeHref(locale, crumb.href)}
+                          className={`transition hover:text-foreground ${
+                            index === breadcrumbs.length - 1 ? "text-foreground" : "text-muted-foreground"
                           }`}
                         >
-                          {item.label}
+                          {crumb.label}
                         </Link>
                       </li>
                     ))}
-                  </ul>
-                </div>
-              );
-            })}
-          </aside>
+                  </ol>
+                  {breadcrumbActions ? <div className="flex items-center">{breadcrumbActions}</div> : null}
+                </nav>
 
-          <article className="min-w-0 px-6 py-10 sm:px-10 xl:col-[2]">
-            <nav aria-label="Breadcrumb" className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-              <ol className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
-                {breadcrumbs.map((crumb, index) => (
-                  <li key={`${crumb.label}-${crumb.href}`} className="flex items-center gap-2">
-                    {index > 0 ? <span>/</span> : null}
-                    <Link
-                      href={localizeHref(locale, crumb.href)}
-                      className={`transition hover:text-foreground ${
-                        index === breadcrumbs.length - 1 ? "text-foreground" : "text-muted-foreground"
-                      }`}
-                    >
-                      {crumb.label}
-                    </Link>
+                <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">{page.pageTitle}</h1>
+                <p className="mt-4 max-w-3xl text-base leading-7 text-muted-foreground sm:text-lg">{page.description}</p>
+                {customTopContent ? <div className="mt-8">{customTopContent}</div> : null}
+
+                {page.sections.map((section) => (
+                  <section key={section.id} id={section.id} className="mt-12 scroll-mt-24">
+                    <h2 className="text-2xl font-semibold tracking-tight">{section.title}</h2>
+                    <p className="mt-3 text-muted-foreground">{section.description}</p>
+                    {section.code ? (
+                      <pre className="mt-4 overflow-x-auto rounded-xl border border-border bg-card p-4 text-sm leading-6">
+                        <code>{section.code}</code>
+                      </pre>
+                    ) : null}
+                  </section>
+                ))}
+
+                <div className="mt-14 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-6">
+                  <span className="text-sm text-muted-foreground">{shell.lastUpdated}</span>
+                  <div className="flex items-center gap-2">
+                    {resolvedPreviousLink ? (
+                      <Link
+                        href={localizeHref(locale, resolvedPreviousLink.href)}
+                        className="rounded-md border border-border px-3 py-1.5 text-sm hover:bg-accent"
+                      >
+                        {resolvedPreviousLink.label}
+                      </Link>
+                    ) : (
+                      <span className="hidden rounded-md border border-border px-3 py-1.5 text-sm text-muted-foreground sm:inline-flex">
+                        {shell.previous}
+                      </span>
+                    )}
+                    {resolvedNextLink ? (
+                      <Link
+                        href={localizeHref(locale, resolvedNextLink.href)}
+                        className="rounded-md border border-border px-3 py-1.5 text-sm hover:bg-accent"
+                      >
+                        {resolvedNextLink.label}
+                      </Link>
+                    ) : (
+                      <span className="hidden rounded-md border border-border px-3 py-1.5 text-sm text-muted-foreground sm:inline-flex">
+                        {shell.next}
+                      </span>
+                    )}
+                  </div>
+                </div>
+              </article>
+            </div>
+
+            <aside className="hidden self-start px-4 py-8 2xl:sticky 2xl:top-16 2xl:block 2xl:max-h-[calc(100vh-4rem)] 2xl:overflow-y-auto 2xl:pl-6">
+              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">{shell.onThisPage}</p>
+              <ul className="space-y-2 text-sm">
+                {page.sections.map((section) => (
+                  <li key={section.id}>
+                    <a href={`#${section.id}`} className="text-muted-foreground transition hover:text-foreground">
+                      {section.title}
+                    </a>
                   </li>
                 ))}
-              </ol>
-              {breadcrumbActions ? <div className="flex items-center">{breadcrumbActions}</div> : null}
-            </nav>
-
-            <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">{page.pageTitle}</h1>
-            <p className="mt-4 max-w-3xl text-base leading-7 text-muted-foreground sm:text-lg">{page.description}</p>
-            {customTopContent ? <div className="mt-8">{customTopContent}</div> : null}
-
-            {page.sections.map((section) => (
-              <section key={section.id} id={section.id} className="mt-12 scroll-mt-24">
-                <h2 className="text-2xl font-semibold tracking-tight">{section.title}</h2>
-                <p className="mt-3 text-muted-foreground">{section.description}</p>
-                {section.code ? (
-                  <pre className="mt-4 overflow-x-auto rounded-xl border border-border bg-card p-4 text-sm leading-6">
-                    <code>{section.code}</code>
-                  </pre>
-                ) : null}
-              </section>
-            ))}
-
-            <div className="mt-14 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-6">
-              <span className="text-sm text-muted-foreground">{shell.lastUpdated}</span>
-              <div className="flex items-center gap-2">
-                {resolvedPreviousLink ? (
-                  <Link
-                    href={localizeHref(locale, resolvedPreviousLink.href)}
-                    className="rounded-md border border-border px-3 py-1.5 text-sm hover:bg-accent"
-                  >
-                    {resolvedPreviousLink.label}
-                  </Link>
-                ) : (
-                  <span className="hidden rounded-md border border-border px-3 py-1.5 text-sm text-muted-foreground sm:inline-flex">
-                    {shell.previous}
-                  </span>
-                )}
-                {resolvedNextLink ? (
-                  <Link
-                    href={localizeHref(locale, resolvedNextLink.href)}
-                    className="rounded-md border border-border px-3 py-1.5 text-sm hover:bg-accent"
-                  >
-                    {resolvedNextLink.label}
-                  </Link>
-                ) : (
-                  <span className="hidden rounded-md border border-border px-3 py-1.5 text-sm text-muted-foreground sm:inline-flex">
-                    {shell.next}
-                  </span>
-                )}
-              </div>
-            </div>
-          </article>
-
-          <aside className="hidden h-[calc(100vh-4rem)] overflow-y-auto px-4 py-8 xl:sticky xl:top-16 xl:block xl:w-[220px] xl:pl-6">
-            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">{shell.onThisPage}</p>
-            <ul className="space-y-2 text-sm">
-              {page.sections.map((section) => (
-                <li key={section.id}>
-                  <a href={`#${section.id}`} className="text-muted-foreground transition hover:text-foreground">
-                    {section.title}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </aside>
+              </ul>
+            </aside>
+          </div>
         </div>
       </main>
     </div>

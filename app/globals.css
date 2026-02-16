@@ -220,34 +220,7 @@
 
   .docs-rails::before,
   .docs-rails::after {
-    content: "";
     display: none;
-    position: fixed;
-    top: 64px;
-    bottom: 0;
-    width: 1px;
-    pointer-events: none;
-    background: repeating-linear-gradient(
-      to bottom,
-      color-mix(in oklab, var(--foreground) 22%, transparent) 0 4px,
-      transparent 4px 8px
-    );
-    z-index: 5;
-  }
-
-  @media (min-width: 1280px) {
-    .docs-rails::before,
-    .docs-rails::after {
-      display: block;
-    }
-  }
-
-  .docs-rails::before {
-    left: max(16px, calc((100vw - 1180px) / 2 + 16px));
-  }
-
-  .docs-rails::after {
-    right: max(16px, calc((100vw - 1180px) / 2 + 16px));
   }
 
   .docs-center-rails {
@@ -271,7 +244,7 @@
     z-index: 1;
   }
 
-  @media (min-width: 768px) {
+  @media (min-width: 1024px) {
     .docs-center-rails::before,
     .docs-center-rails::after {
       display: block;
