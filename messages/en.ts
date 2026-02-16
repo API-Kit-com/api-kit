@@ -210,6 +210,8 @@ export const enMessages: AppMessages = {
       description: "The Enterprise page is under construction. We will detail enterprise-grade capabilities here.",
     },
   },
-  docsTextMap: {},
+  docsTextMap: {
+    "This page is under construction and will be implemented soon.":
+      "This page is under construction and will be implemented soon.",
+  },
 };
-
