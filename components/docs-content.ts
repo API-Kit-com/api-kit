@@ -71,6 +71,8 @@ type CoreConceptTopic = {
   page: DocsPageContent;
 };
 
+const docsTopicComingSoonDescription = "This page is under construction and will be implemented soon.";
+
 export const apiKitModules: ApiKitModule[] = [
   {
     key: "auth",
@@ -215,38 +217,32 @@ export const frameworkGuides: FrameworkGuide[] = [
     page: {
       breadcrumb: "Framework Guides / Node / JS / TS",
       pageTitle: "Node / JS / TS",
-      description:
-        "Recommended API-Kit integration paths for JavaScript and TypeScript runtimes.",
+      description: docsTopicComingSoonDescription,
       sections: [
         {
           id: "express",
           title: "Express.js",
-          description:
-            "Add API-Kit middleware for auth validation, request context, and module-level permissions in Express routes.",
+          description: docsTopicComingSoonDescription,
         },
         {
           id: "nestjs",
           title: "NestJS",
-          description:
-            "Use API-Kit with guards, interceptors, and modules so your domain services share a consistent policy layer.",
+          description: docsTopicComingSoonDescription,
         },
         {
           id: "fastify",
           title: "Fastify",
-          description:
-            "Register API-Kit plugins to manage scoped clients, hooks, and validated request pipelines.",
+          description: docsTopicComingSoonDescription,
         },
         {
           id: "hono",
           title: "Hono",
-          description:
-            "Wire API-Kit handlers into edge-ready Hono apps with lightweight middleware composition.",
+          description: docsTopicComingSoonDescription,
         },
         {
           id: "encore",
           title: "Encore.ts",
-          description:
-            "Use API-Kit services with typed Encore.ts endpoints to keep contract-first APIs maintainable.",
+          description: docsTopicComingSoonDescription,
         },
       ],
     },
@@ -258,26 +254,22 @@ export const frameworkGuides: FrameworkGuide[] = [
     page: {
       breadcrumb: "Framework Guides / Python",
       pageTitle: "Python",
-      description:
-        "Integration guides for Python-based API stacks supported by API-Kit.",
+      description: docsTopicComingSoonDescription,
       sections: [
         {
           id: "fastapi",
           title: "FastAPI",
-          description:
-            "Implement API-Kit dependencies in FastAPI for auth checks, usage control, and structured error responses.",
+          description: docsTopicComingSoonDescription,
         },
         {
           id: "django-drf",
           title: "Django + Django REST Framework",
-          description:
-            "Connect API-Kit with DRF permissions and serializers for secure tenant-aware endpoints.",
+          description: docsTopicComingSoonDescription,
         },
         {
           id: "flask",
           title: "Flask",
-          description:
-            "Attach API-Kit request guards and module clients in Flask blueprints for small and flexible services.",
+          description: docsTopicComingSoonDescription,
         },
       ],
     },
@@ -289,20 +281,17 @@ export const frameworkGuides: FrameworkGuide[] = [
     page: {
       breadcrumb: "Framework Guides / Java & Kotlin",
       pageTitle: "Java & Kotlin",
-      description:
-        "Framework-specific references for JVM backends using API-Kit.",
+      description: docsTopicComingSoonDescription,
       sections: [
         {
           id: "spring-boot",
           title: "Spring Boot",
-          description:
-            "Configure API-Kit via Spring filters and beans to enforce auth and module orchestration across controllers.",
+          description: docsTopicComingSoonDescription,
         },
         {
           id: "ktor",
           title: "Kotlin + Ktor",
-          description:
-            "Set up API-Kit in Ktor pipelines with strongly typed request handling and coroutine-friendly services.",
+          description: docsTopicComingSoonDescription,
         },
       ],
     },
@@ -314,51 +303,42 @@ export const frameworkGuides: FrameworkGuide[] = [
     page: {
       breadcrumb: "Framework Guides / Other Stacks",
       pageTitle: "Other Stacks",
-      description:
-        "Additional ecosystems with proven API-Kit integration patterns.",
+      description: docsTopicComingSoonDescription,
       sections: [
         {
           id: "gin",
           title: "Gin (Go)",
-          description:
-            "Use API-Kit middleware wrappers in Gin handlers for token verification and rate-limit enforcement.",
+          description: docsTopicComingSoonDescription,
         },
         {
           id: "fiber",
           title: "Fiber (Go)",
-          description:
-            "Apply API-Kit guards and shared clients in Fiber apps with low-overhead routing.",
+          description: docsTopicComingSoonDescription,
         },
         {
           id: "aspnet-core",
           title: "ASP.NET Core (C#)",
-          description:
-            "Integrate API-Kit with ASP.NET middleware, policies, and dependency injection for enterprise APIs.",
+          description: docsTopicComingSoonDescription,
         },
         {
           id: "rails",
           title: "Ruby on Rails",
-          description:
-            "Connect API-Kit modules into Rails controllers and service objects for secure business workflows.",
+          description: docsTopicComingSoonDescription,
         },
         {
           id: "phoenix",
           title: "Phoenix (Elixir)",
-          description:
-            "Use API-Kit in plugs and contexts to manage authorization and organization-aware request boundaries.",
+          description: docsTopicComingSoonDescription,
         },
         {
           id: "actix",
           title: "Actix Web (Rust)",
-          description:
-            "Compose API-Kit integrations in Actix middleware for fast, strongly typed APIs.",
+          description: docsTopicComingSoonDescription,
         },
       ],
     },
   },
 ];
-
-const docsTopicComingSoonDescription = "This page is under construction and will be implemented soon.";
 
 export const gettingStartedTopics: GettingStartedTopic[] = [
   {
