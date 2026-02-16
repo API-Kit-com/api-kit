@@ -358,6 +358,8 @@ export const frameworkGuides: FrameworkGuide[] = [
   },
 ];
 
+const gettingStartedComingSoonDescription = "This page is under construction and will be implemented soon.";
+
 export const gettingStartedTopics: GettingStartedTopic[] = [
   {
     key: "introduction",
@@ -366,14 +368,12 @@ export const gettingStartedTopics: GettingStartedTopic[] = [
     page: {
       breadcrumb: "Getting Started / Introduction",
       pageTitle: "Introduction",
-      description:
-        "API-Kit gives you modular building blocks to ship authentication, billing, and operational APIs with a consistent developer experience.",
+      description: gettingStartedComingSoonDescription,
       sections: [
         {
           id: "introduction",
           title: "Introduction",
-          description:
-            "API-Kit gives you modular building blocks to ship authentication, billing, and operational APIs with a consistent developer experience.",
+          description: gettingStartedComingSoonDescription,
         },
       ],
     },
@@ -385,15 +385,12 @@ export const gettingStartedTopics: GettingStartedTopic[] = [
     page: {
       breadcrumb: "Getting Started / Installation",
       pageTitle: "Installation",
-      description:
-        "Create your project, install dependencies, and run the local development server.",
+      description: gettingStartedComingSoonDescription,
       sections: [
         {
           id: "installation",
           title: "Installation",
-          description:
-            "Create your project, install dependencies, and run the local development server.",
-          code: `npm create next-app@latest api-kit\ncd api-kit\nnpm install\nnpm run dev`,
+          description: gettingStartedComingSoonDescription,
         },
       ],
     },
@@ -405,14 +402,12 @@ export const gettingStartedTopics: GettingStartedTopic[] = [
     page: {
       breadcrumb: "Getting Started / Project Structure",
       pageTitle: "Project Structure",
-      description:
-        "Keep route files in app/, shared UI in components/, utilities in lib/, and static assets in public/ for a scalable structure.",
+      description: gettingStartedComingSoonDescription,
       sections: [
         {
           id: "project-structure",
           title: "Project Structure",
-          description:
-            "Keep route files in app/, shared UI in components/, utilities in lib/, and static assets in public/ for a scalable structure.",
+          description: gettingStartedComingSoonDescription,
         },
       ],
     },
@@ -424,14 +419,12 @@ export const gettingStartedTopics: GettingStartedTopic[] = [
     page: {
       breadcrumb: "Getting Started / Routing",
       pageTitle: "Routing",
-      description:
-        "Use file-based routing under app/ and colocate nested layouts when sections share navigation, permissions, or state.",
+      description: gettingStartedComingSoonDescription,
       sections: [
         {
           id: "routing",
           title: "Routing",
-          description:
-            "Use file-based routing under app/ and colocate nested layouts when sections share navigation, permissions, or state.",
+          description: gettingStartedComingSoonDescription,
         },
       ],
     },

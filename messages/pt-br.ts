@@ -222,6 +222,8 @@ export const ptBrMessages: AppMessages = {
     Installation: "Instalação",
     "Project Structure": "Estrutura do projeto",
     Routing: "Roteamento",
+    "This page is under construction and will be implemented soon.":
+      "Esta página está em construção e será implementada em breve.",
     "Data Fetching": "Busca de dados",
     Styling: "Estilização",
     Deployment: "Deploy",
@@ -324,4 +326,3 @@ export const ptBrMessages: AppMessages = {
       "Auth, Billing, Ecommerce, Notification, Organization, Rate Limits e SDK possuem rota própria em /docs/api-kit.",
   },
 };
-
